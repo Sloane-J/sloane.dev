@@ -1,0 +1,56 @@
+---
+interface Props {
+  as?: keyof HTMLElementTagNameMap;
+  className?: string;
+  size?: 'default' | 'sm' | 'lg' | 'full';
+  padding?: 'default' | 'sm' | 'lg' | 'none';
+}
+
+const {
+  as: Element = 'div',
+  className = '',
+  size = 'default',
+  padding = 'default'
+} = Astro.props;
+
+const sizeClass = {
+  default: 'max-w-7xl',
+  sm: 'max-w-5xl',
+  lg: 'max-w-8xl',
+  full: 'max-w-full'
+}[size];
+
+const paddingClass = {
+  default: 'px-4 sm:px-6 lg:px-8',
+  sm: 'px-4',
+  lg: 'px-6 sm:px-8 lg:px-12',
+  none: ''
+}[padding];
+---
+
+<Element
+  class:list={[
+    'mx-auto w-full',
+    sizeClass,
+    paddingClass,
+    className
+  ]}
+>
+  <slot />
+</Element>
+
+<style>
+  /* Optional: Add responsive padding adjustments */
+  @media (max-width: 640px) {
+    .px-4 {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  /* Optional: Add container animations */
+  div {
+    transition: max-width 0.3s ease-in-out;
+  }
+</style>
+

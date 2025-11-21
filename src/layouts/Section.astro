@@ -1,0 +1,65 @@
+---
+interface Props {
+  id?: string;
+  className?: string;
+  variant?: 'default' | 'alt';
+  containerWidth?: 'default' | 'wide' | 'narrow';
+}
+
+const {
+  id,
+  className = '',
+  variant = 'default',
+  containerWidth = 'default'
+} = Astro.props;
+
+const bgColor = variant === 'alt' ? 'bg-[#080807]' : 'bg-[#121212]';
+
+const containerClass = {
+  default: 'max-w-7xl',
+  wide: 'max-w-8xl',
+  narrow: 'max-w-5xl'
+}[containerWidth];
+---
+
+<section
+  id={id}
+  class:list={[
+    'py-20',
+    bgColor,
+    className
+  ]}
+>
+  <div class:list={[
+    'mx-auto px-4 sm:px-6 lg:px-8',
+    containerClass
+  ]}>
+    <slot name="header" />
+    <slot />
+    <slot name="footer" />
+  </div>
+</section>
+
+<style>
+  section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Optional: Add gradient overlay for sections */
+  section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.05),
+      transparent
+    );
+  }
+</style>
+

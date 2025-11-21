@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CornerMenu from '../components/navigation/CornerMenu';
+import Hero from '../components/sections/Hero';
+import About from '../components/sections/About';
+import Services from '../components/sections/Services';
+import Projects from '../components/sections/Projects';
+
+import Testimonials from '../components/sections/Testimonials';
+import Blog from '../components/sections/Blog';
+import Contact from '../components/sections/Contact';
+import Footer from '../components/Footer';
+import ScrollToTop from '../components/ui/ScrollToTop';
+import BackgroundAnimation from '../components/ui/BackgroundAnimation';
+//import BackgroundEffects from '../components/ui/BackgroundEffects'; <BackgroundEffects client:load />
+---
+
+<Layout title="Samuel Dorkey - Freelance Web Designer & Developer">
+<BackgroundAnimation client:load />
+  <CornerMenu client:load />
+  <main>
+    <Hero client:load />
+    <Services client:load />
+    <Projects client:load />
+    <About client:load />
+    <Testimonials client:load />
+    <Blog client:load />
+    <Contact client:load />
+  </main>
+  <Footer client:load />
+  <ScrollToTop client:load />
+</Layout>
