@@ -37,7 +37,8 @@ export default function Testimonials() {
   // Preload adjacent images
   useEffect(() => {
     const nextIndex = (activeIndex + 1) % testimonials.length;
-    const prevIndex = (activeIndex - 1 + testimonials.length) % testimonials.length;
+    const prevIndex =
+      (activeIndex - 1 + testimonials.length) % testimonials.length;
 
     const preloadImage = (src: string) => {
       const img = new Image();
@@ -58,11 +59,16 @@ export default function Testimonials() {
   const prevTestimonial = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setActiveIndex(
+      (prev) => (prev - 1 + testimonials.length) % testimonials.length
+    );
     setTimeout(() => setIsTransitioning(false), 500);
   };
 
-  const currentTestimonial = useMemo(() => testimonials[activeIndex], [activeIndex]);
+  const currentTestimonial = useMemo(
+    () => testimonials[activeIndex],
+    [activeIndex]
+  );
 
   return (
     <section

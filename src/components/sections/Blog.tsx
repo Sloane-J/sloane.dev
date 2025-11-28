@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, ArrowRight, Tag } from "lucide-react";
+import { ArrowRight, Calendar, Clock, Tag } from "lucide-react";
+import { useState } from "react";
 
 // Blog post data structure
 interface BlogPost {
@@ -21,27 +21,29 @@ interface BlogPost {
 const blogPosts: BlogPost[] = [
   {
     id: "1",
-    title: "Building Modern Web Applications with React and TypeScript",
+    title: "Work Profiles on Android - A Discovery Through Gaming",
     excerpt:
-      "Learn how to leverage React and TypeScript to build scalable web applications with better developer experience.",
-    date: "2024-02-20",
-    readTime: "5 min read",
-    category: "Development",
+      "How a mobile game led me to discover Android's built-in work profile feature—a powerful tool hiding in plain sight.",
+    date: "2025-11-22",
+    readTime: "8 min read",
+    category: "Post",
     image: "images/placeholder.avif",
-    tags: ["React", "TypeScript", "Web Development"],
-    slug: "building-modern-web-applications",
+    tags: ["Android", "Work Profiles", "Simcity Buildit"],
+    slug: "android-work-profiles",
+    link: "https://sloane-dev-blog.vercel.app/posts/android-work-profile",
   },
   {
     id: "2",
-    title: "Mastering Framer Motion Animations",
+    title: "Q-Vault",
     excerpt:
-      "A comprehensive guide to creating smooth and engaging animations using Framer Motion in React applications.",
-    date: "2024-02-15",
-    readTime: "4 min read",
-    category: "Design",
+      " Q-Vault is a Laravel + Livewire system built to bring order to the chaos of past exam paper storage access for university students.",
+    date: "2025-1-25",
+    readTime: "5 min read",
+    category: "Project",
     image: "images/placeholder.avif",
-    tags: ["Animation", "React", "Framer Motion"],
-    slug: "mastering-framer-motion",
+    tags: ["Laravel", "Livewire", "Supabase"],
+    slug: "q-vault",
+    link: "https://sloane-dev-blog.vercel.app/projects/q-vault",
   },
   {
     id: "3",
@@ -50,10 +52,11 @@ const blogPosts: BlogPost[] = [
       "Exploring upcoming trends and technologies that will shape the future of web development.",
     date: "2024-02-10",
     readTime: "6 min read",
-    category: "Technology",
+    category: "Docs",
     image: "images/placeholder.avif",
     tags: ["Web Development", "Trends", "Technology"],
     slug: "future-of-web-development",
+    link: "https://sloane-dev-blog.vercel.app/docs/configuration",
   },
 ];
 
@@ -170,7 +173,7 @@ export default function Blog() {
                   ))}
                 </div>
                 <a
-                  href={`/blog/${post.slug}`}
+                  href={`${post.link}`}
                   className="inline-flex items-center gap-2 text-white hover:gap-3 transition-all"
                 >
                   Read More <ArrowRight className="w-4 h-4" />

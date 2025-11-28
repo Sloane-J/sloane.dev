@@ -1,6 +1,13 @@
-import React, { useEffect, useRef, useState, useCallback, memo } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  memo,
+} from "react";
 import { Github, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 
+// --- Data ---
 const projects = [
   {
     title: "Affiliate Nexus",
@@ -16,17 +23,21 @@ const projects = [
     liveUrl: "https://affiliate-nexus.vercel.app/",
     githubUrl: "https://github.com/fairy-app",
     images: [
-      { src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&h=600&fit=crop" },
+      {
+        src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=675&fit=crop",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=675&fit=crop",
+      },
     ],
   },
   {
     title: "Grain & Gradient",
     description:
-      "Grain & Gradient is a modern digital publication offering a blend of insightful and entertaining content across various topics, including technology, current affairs, entertainment, and more. The website features a range of articles.",
+      "Grain & Gradient is a modern digital publication offering a blend of insightful and entertaining content across various topics, including technology, current affairs, entertainment, and more.",
     tags: [
       "React.js",
       "TypeScript",
@@ -37,165 +48,127 @@ const projects = [
     liveUrl: "http://grainandgradient.vercel.app/",
     githubUrl: "https://github.com/Sloane-J/Grain-Gradient",
     images: [
-      { src: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=600&fit=crop" },
+      {
+        src: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&h=675&fit=crop",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&h=675&fit=crop",
+      },
     ],
   },
   {
     title: "Q-Vault",
     description:
-      "Q-Vault is a web-based platform designed to streamline the examination process for educational institutions. It offers a comprehensive suite of tools for administrators, educators, and students, aiming to enhance efficiency, security, and user experience.",
+      "Q-Vault is a web-based platform designed to streamline the examination process for educational institutions. It offers a comprehensive suite of tools for administrators, educators, and students.",
     tags: ["Laravel", "Tailwind CSS", "Livewire"],
     liveUrl: "#",
     githubUrl: "https://github.com/Q-Vault",
     images: [
-      { src: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&h=600&fit=crop" },
+      {
+        src: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&h=675&fit=crop",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=675&fit=crop",
+      },
     ],
   },
   {
     title: "Peer Tech Konnect",
     description:
-      "Peer Tech Konnect is a web based Learning Management System (LMS) designed to connect students, tutors, and administrators in a unified education environment. It offers user authentication, course enrollment, tutor approvals, discussions, assignments, quizzes, grading, analytics, and real-time email notifications.",
+      "Peer Tech Konnect is a web based Learning Management System (LMS) designed to connect students, tutors, and administrators in a unified education environment.",
     tags: ["PHP", "HTML", "Bootstrap", "JavaScript"],
     liveUrl: "#",
     githubUrl: "https://github.com/LMS",
     images: [
-      { src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop" },
-      { src: "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&h=600&fit=crop" },
+      {
+        src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=675&fit=crop",
+      },
+      {
+        src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&h=675&fit=crop",
+      },
     ],
   },
 ];
 
-// Memoized ImageSlider component with auto-play
-const ImageSlider = memo(({ images, projectTitle, className = "", isVisible }) => {
+// --- Sub Components ---
+
+const ImageSlider = memo(({ images, projectTitle, isVisible }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loadedImages, setLoadedImages] = useState(new Set([0]));
   const [isPaused, setIsPaused] = useState(false);
   const autoPlayRef = useRef(null);
 
-  const goToPrevious = useCallback(() => {
-    setCurrentIndex((prev) => {
-      const newIndex = prev === 0 ? images.length - 1 : prev - 1;
-      setLoadedImages(prevLoaded => new Set([...prevLoaded, newIndex]));
-      return newIndex;
-    });
-  }, [images.length]);
-
-  const goToNext = useCallback(() => {
-    setCurrentIndex((prev) => {
-      const newIndex = (prev + 1) % images.length;
-      setLoadedImages(prevLoaded => new Set([...prevLoaded, newIndex]));
-      return newIndex;
-    });
-  }, [images.length]);
-
   const goToSlide = useCallback((index) => {
     setCurrentIndex(index);
-    setLoadedImages(prevLoaded => new Set([...prevLoaded, index]));
   }, []);
 
-  // Auto-play functionality
+  const goToNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  }, [images.length]);
+
+  const goToPrevious = useCallback(() => {
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  }, [images.length]);
+
   useEffect(() => {
     if (!isVisible || isPaused || images.length <= 1) return;
-
-    autoPlayRef.current = setInterval(() => {
-      goToNext();
-    }, 4000); // 4 seconds per image
-
-    return () => {
-      if (autoPlayRef.current) {
-        clearInterval(autoPlayRef.current);
-      }
-    };
+    autoPlayRef.current = setInterval(goToNext, 4000);
+    return () => clearInterval(autoPlayRef.current);
   }, [isVisible, isPaused, goToNext, images.length]);
 
-  // Preload adjacent images
-  useEffect(() => {
-    if (isVisible && currentIndex !== null) {
-      const nextIndex = (currentIndex + 1) % images.length;
-      const prevIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
-      setLoadedImages(prevLoaded => new Set([...prevLoaded, nextIndex, prevIndex]));
-    }
-  }, [currentIndex, isVisible, images.length]);
-
-  const handleMouseEnter = () => setIsPaused(true);
-  const handleMouseLeave = () => setIsPaused(false);
+  if (!images || images.length === 0) return null;
 
   return (
     <div
-      className={`relative w-full h-full overflow-hidden ${className}`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      className="relative w-full h-full overflow-hidden rounded-xl md:rounded-2xl group"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
     >
+      <div
+        className="flex w-full h-full transition-transform duration-500 ease-out will-change-transform"
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+      >
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className="w-full h-full flex-shrink-0 relative bg-gray-900"
+          >
+            <img
+              src={image.src}
+              alt={`${projectTitle} ${index + 1}`}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+
       {images.length > 1 && (
         <>
           <button
             onClick={goToPrevious}
-            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 md:w-10 md:h-10 bg-black/60 hover:bg-black/80 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110"
-            aria-label="Previous image"
+            className="absolute left-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-black/80 backdrop-blur-sm rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           >
-            <ChevronLeft className="w-4 h-4 md:w-5 md:h-5" />
+            <ChevronLeft size={20} />
           </button>
-
           <button
             onClick={goToNext}
-            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-30 w-8 h-8 md:w-10 md:h-10 bg-black/60 hover:bg-black/80 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110"
-            aria-label="Next image"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-black/50 hover:bg-black/80 backdrop-blur-sm rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           >
-            <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
+            <ChevronRight size={20} />
           </button>
+
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+            {images.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => goToSlide(idx)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  currentIndex === idx ? "w-6 bg-white" : "w-1.5 bg-white/50"
+                }`}
+              />
+            ))}
+          </div>
         </>
-      )}
-
-      <div className="w-full h-full overflow-hidden relative">
-        <div
-          className="flex w-full h-full transition-transform duration-500 ease-out"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        >
-          {images.map((image, index) => (
-            <div key={index} className="w-full h-full flex-shrink-0 relative">
-              {loadedImages.has(index) ? (
-                <img
-                  src={image.src}
-                  alt={image.alt || `${projectTitle} screenshot ${index + 1}`}
-                  className="w-full h-full object-contain object-center"
-                  loading={index === 0 ? "eager" : "lazy"}
-                />
-              ) : (
-                <div className="w-full h-full bg-gray-800/50 flex items-center justify-center">
-                  <div className="w-6 h-6 md:w-8 md:h-8 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {images.length > 1 && (
-        <div className="absolute bottom-2 md:bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 bg-black/40 backdrop-blur-sm rounded-full">
-          {images.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`rounded-full transition-all duration-300 ${
-                currentIndex === index
-                  ? "bg-white w-4 h-1.5 md:w-6 md:h-2"
-                  : "bg-white/50 hover:bg-white/75 w-1.5 h-1.5 md:w-2 md:h-2"
-              }`}
-              aria-label={`Go to image ${index + 1}`}
-            />
-          ))}
-        </div>
       )}
     </div>
   );
@@ -203,310 +176,242 @@ const ImageSlider = memo(({ images, projectTitle, className = "", isVisible }) =
 
 ImageSlider.displayName = "ImageSlider";
 
-// Memoized ProjectCard component
-const ProjectCard = memo(({ project, index, sectionProgress, allProjects }) => {
-  const cardStart = index / allProjects.length;
-  const cardEnd = (index + 1) / allProjects.length;
+const ProjectCard = memo(
+  ({ project, index, sectionProgress, totalProjects }) => {
+    const segmentSize = 1 / totalProjects;
+    const start = index * segmentSize;
+    const end = start + segmentSize;
 
-  const isInRange =
-    sectionProgress >= cardStart - 0.04 && sectionProgress < cardEnd + 0.04;
+    let localProgress = (sectionProgress - start) / segmentSize;
 
-  // Skip expensive calculations if card is not near viewport
-  if (!isInRange) {
-    return null;
-  }
+    if (localProgress < -0.5 || localProgress > 1.5) return null;
 
-  const localProgress = Math.max(
-    0,
-    Math.min(1, (sectionProgress - cardStart) / (cardEnd - cardStart))
-  );
+    const clampedProgress = Math.max(0, Math.min(1, localProgress));
+    const isActive = clampedProgress > 0 && clampedProgress < 1;
 
-  // Optimized opacity and scale logic for 220vh
-  let opacity = 0;
-  let scale = 0.95;
+    const opacity =
+      localProgress < 0
+        ? 0
+        : localProgress < 0.2
+        ? localProgress * 5
+        : localProgress > 0.8
+        ? (1 - localProgress) * 5
+        : 1;
 
-  if (sectionProgress < cardStart) {
-    opacity = 0;
-    scale = 0.95;
-  } else if (
-    sectionProgress >= cardStart &&
-    sectionProgress < cardStart + 0.035
-  ) {
-    const fadeInProgress = (sectionProgress - cardStart) / 0.035;
-    opacity = fadeInProgress;
-    scale = 0.95 + fadeInProgress * 0.05;
-  } else if (
-    sectionProgress >= cardStart + 0.035 &&
-    sectionProgress < cardEnd - 0.18
-  ) {
-    opacity = 1;
-    scale = 1;
-  } else if (sectionProgress >= cardEnd - 0.18 && sectionProgress < cardEnd) {
-    const fadeOutProgress = (sectionProgress - (cardEnd - 0.18)) / 0.18;
-    opacity = 1 - fadeOutProgress;
-    scale = 1 - fadeOutProgress * 0.05;
-  } else {
-    opacity = 0;
-    scale = 0.95;
-  }
+    const scale =
+      localProgress < 0.2
+        ? 0.9 + localProgress * 0.5
+        : localProgress > 0.8
+        ? 1 - (localProgress - 0.8) * 0.25
+        : 1;
 
-  const isActive =
-    sectionProgress >= cardStart + 0.035 && sectionProgress < cardEnd - 0.18;
+    const reveal = (threshold) =>
+      Math.max(0, Math.min(1, (clampedProgress - threshold) * 8));
 
-  // Fast, nearly simultaneous text reveal animations
-  const baseReveal = Math.max(0, Math.min(1, (localProgress - 0.02) * 10));
-  const titleReveal = baseReveal;
-  const descReveal = Math.max(0, Math.min(1, (localProgress - 0.03) * 10));
-  const tagsReveal = Math.max(0, Math.min(1, (localProgress - 0.04) * 10));
-  const buttonsReveal = Math.max(0, Math.min(1, (localProgress - 0.05) * 10));
+    const titleY = (1 - reveal(0.1)) * 40;
+    const titleOp = reveal(0.1);
 
-  // Vertical slide number transition
-  const getNumberSlide = () => {
-    const currentNum = index + 1;
-    const nextNum = index + 2 > allProjects.length ? 1 : index + 2;
-    const prevNum = index === 0 ? allProjects.length : index;
+    const descY = (1 - reveal(0.15)) * 30;
+    const descOp = reveal(0.15);
 
-    if (sectionProgress >= cardEnd - 0.18 && sectionProgress < cardEnd) {
-      const slideProgress = (sectionProgress - (cardEnd - 0.18)) / 0.18;
-      return {
-        currentTranslate: -slideProgress * 100,
-        nextTranslate: (1 - slideProgress) * 100,
-        showNext: true,
-        current: currentNum,
-        next: nextNum,
-      };
-    } else if (
-      sectionProgress >= cardStart &&
-      sectionProgress < cardStart + 0.035
-    ) {
-      const slideProgress = (sectionProgress - cardStart) / 0.035;
-      return {
-        currentTranslate: (1 - slideProgress) * 100 - 100,
-        nextTranslate: -slideProgress * 100 - 100,
-        showNext: true,
-        current: currentNum,
-        next: prevNum,
-      };
-    }
+    const tagsY = (1 - reveal(0.2)) * 20;
+    const tagsOp = reveal(0.2);
 
-    return {
-      currentTranslate: 0,
-      nextTranslate: 100,
-      showNext: false,
-      current: currentNum,
-      next: nextNum,
-    };
-  };
+    const imgScale = 0.95 + reveal(0.1) * 0.05;
 
-  const numberSlide = getNumberSlide();
+    return (
+      <div
+        className="absolute inset-0 w-full h-full flex items-center justify-center will-change-transform"
+        style={{
+          opacity: Math.max(0, Math.min(1, opacity)),
+          transform: `scale(${scale})`,
+          zIndex: isActive ? 10 : 0,
+          pointerEvents: isActive ? "auto" : "none",
+        }}
+      >
+        <div className="container mx-auto px-4 md:px-8 lg:px-16 w-full max-w-7xl">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
+            {/* Text Content */}
+            <div className="space-y-6 md:space-y-8 order-2 lg:order-1">
+              {/* Number */}
+              <div className="overflow-hidden">
+                <span className="block text-8xl md:text-9xl font-bold text-white/5 tabular-nums leading-none">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
 
-  return (
-    <div
-      className="absolute inset-0 w-full h-full transition-all duration-300"
-      style={{
-        transform: `scale(${scale})`,
-        opacity: opacity,
-        zIndex: isInRange ? 10 : 1,
-        pointerEvents: isActive ? "auto" : "none",
-        willChange: isActive ? "transform, opacity" : "auto",
-      }}
-    >
-      <div className="w-full h-full bg-[#080807] overflow-hidden">
-        <div className="container mx-auto px-4 md:px-6 lg:px-12 h-full flex items-center py-8 md:py-0">
-          <div className="grid lg:grid-cols-2 gap-6 md:gap-12 lg:gap-20 items-center w-full">
-            {/* Left Side - Content */}
-            <div className="space-y-3 md:space-y-6">
-              {/* Project Number - Vertical Slide */}
-              <div
-                className="overflow-hidden h-[72px] md:h-[96px] lg:h-[144px] relative"
-                style={{
-                  opacity: titleReveal,
-                }}
-              >
-                <div
-                  className="transition-transform duration-500 ease-out"
+              {/* Title & Desc */}
+              <div className="space-y-4 relative -mt-8 md:-mt-12">
+                <h2
+                  className="text-3xl md:text-5xl font-bold text-white leading-tight"
                   style={{
-                    transform: `translateY(${numberSlide.currentTranslate}%)`,
+                    transform: `translateY(${titleY}px)`,
+                    opacity: titleOp,
                   }}
                 >
-                  <span className="text-6xl md:text-8xl lg:text-9xl font-bold text-white/10 leading-none block tabular-nums">
-                    {String(numberSlide.current).padStart(2, "0")}
-                  </span>
-                </div>
-                {numberSlide.showNext && (
-                  <div
-                    className="absolute top-0 left-0 transition-transform duration-500 ease-out"
-                    style={{
-                      transform: `translateY(${numberSlide.nextTranslate}%)`,
-                    }}
-                  >
-                    <span className="text-6xl md:text-8xl lg:text-9xl font-bold text-white/10 leading-none block tabular-nums">
-                      {String(numberSlide.next).padStart(2, "0")}
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              {/* Project Title */}
-              <div
-                className="overflow-hidden"
-                style={{
-                  transform: `translateY(${(1 - titleReveal) * 20}px)`,
-                  opacity: titleReveal,
-                }}
-              >
-                <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
                   {project.title}
                 </h2>
-              </div>
-
-              {/* Project Description - Hidden on mobile */}
-              <div
-                className="overflow-hidden hidden md:block"
-                style={{
-                  transform: `translateY(${(1 - descReveal) * 15}px)`,
-                  opacity: descReveal,
-                }}
-              >
-                <p className="text-sm md:text-base lg:text-lg text-gray-300 leading-relaxed max-w-xl font-inter">
-                  {project.description}
-                </p>
+                <div
+                  className="hidden md:block"
+                  style={{
+                    transform: `translateY(${descY}px)`,
+                    opacity: descOp,
+                  }}
+                >
+                  <p className="text-gray-400 text-lg leading-relaxed max-w-lg font-inter">
+                    {project.description}
+                  </p>
+                </div>
               </div>
 
               {/* Tags */}
               <div
-                className="flex flex-wrap gap-1.5 md:gap-2 font-inter"
-                style={{
-                  transform: `translateY(${(1 - tagsReveal) * 10}px)`,
-                  opacity: tagsReveal,
-                }}
+                className="flex flex-wrap gap-2"
+                style={{ transform: `translateY(${tagsY}px)`, opacity: tagsOp }}
               >
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-2 md:px-3 py-1 md:py-1.5 text-xs md:text-sm bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white"
+                    className="px-3 py-1 text-sm text-white/80 bg-white/10 border border-white/10 rounded-full backdrop-blur-sm font-inter"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
 
-              {/* Action Buttons */}
-              <div
-                className="flex flex-col sm:flex-row gap-2 md:gap-3 font-inter"
-                style={{
-                  transform: `translateY(${(1 - buttonsReveal) * 5}px)`,
-                  opacity: buttonsReveal,
-                }}
-              >
+              {/* Buttons */}
+              <div className="flex gap-4 pt-2">
                 <a
                   href={project.githubUrl}
                   target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-4 md:px-5 py-2 md:py-2.5 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-all border border-white/20 text-white text-xs md:text-sm font-medium hover:scale-105 duration-300"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-white transition-all hover:scale-105 font-inter text-sm"
                 >
-                  <Github className="w-3 h-3 md:w-4 md:h-4" />
-                  <span>View Code</span>
+                  <Github className="w-4 h-4 md:w-[18px] md:h-[18px]" />
+                  <span>Code</span>
                 </a>
+
                 {project.liveUrl !== "#" && (
                   <a
                     href={project.liveUrl}
                     target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 px-4 md:px-5 py-2 md:py-2.5 bg-gradient-to-r from-orange-600 to-orange-400 rounded-full hover:from-orange-500 hover:to-orange-300 transition-all text-white text-xs md:text-sm font-medium hover:scale-105 duration-300"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 px-4 py-2 md:px-5 md:py-2.5 bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 rounded-full text-white transition-all hover:scale-105 shadow-lg shadow-orange-900/20 font-inter text-sm"
                   >
-                    <ExternalLink className="w-3 h-3 md:w-4 md:h-4" />
+                    <ExternalLink className="w-4 h-4 md:w-[18px] md:h-[18px]" />
                     <span>Live Demo</span>
                   </a>
                 )}
               </div>
             </div>
 
-            {/* Right Side - Image Slider */}
+            {/* Image Area - Now Landscape */}
             <div
-              className="relative h-[300px] md:h-[400px] lg:h-[500px]"
+              className="order-1 lg:order-2 relative w-full aspect-video"
               style={{
-                transform: `scale(${0.95 + titleReveal * 0.05})`,
-                opacity: titleReveal,
+                transform: `scale(${imgScale})`,
+                opacity: titleOp,
               }}
             >
-              <ImageSlider
-                images={project.images}
-                projectTitle={project.title}
-                className="w-full h-full rounded-xl md:rounded-2xl"
-                isVisible={isActive}
-              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent rounded-2xl -rotate-2 scale-105 opacity-50 blur-sm" />
+              <div className="relative w-full h-full shadow-2xl shadow-black/50 rounded-2xl overflow-hidden bg-[#111]">
+                <ImageSlider
+                  images={project.images}
+                  projectTitle={project.title}
+                  isVisible={isActive}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+);
 
 ProjectCard.displayName = "ProjectCard";
 
+// --- Main Component ---
+
 const Projects = () => {
   const containerRef = useRef(null);
-  const [sectionProgress, setSectionProgress] = useState(0);
-  const rafRef = useRef(null);
+  const [progress, setProgress] = useState(0);
+  const bounds = useRef({ top: 0, height: 0 });
 
-  const handleScroll = useCallback(() => {
+  const updateBounds = useCallback(() => {
     if (!containerRef.current) return;
-
     const rect = containerRef.current.getBoundingClientRect();
-    const sectionTop = rect.top;
-    const sectionHeight = rect.height;
-    const windowHeight = window.innerHeight;
-
-    if (sectionTop > windowHeight || sectionTop + sectionHeight < 0) {
-      return;
-    }
-
-    const scrolled = windowHeight - sectionTop;
-    const scrollableHeight = sectionHeight + windowHeight;
-    const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
-
-    setSectionProgress(progress);
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    bounds.current = {
+      top: rect.top + scrollTop,
+      height: rect.height,
+      vh: window.innerHeight,
+    };
   }, []);
 
   useEffect(() => {
-    const throttledScroll = () => {
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
-      rafRef.current = requestAnimationFrame(handleScroll);
+    updateBounds();
+
+    const handleScroll = () => {
+      const { top, height, vh } = bounds.current;
+      const scrollY = window.scrollY;
+
+      const startOffset = top - vh;
+      const distance = scrollY - startOffset;
+      const totalScrollable = height + vh;
+
+      const newProgress = Math.max(0, Math.min(1, distance / totalScrollable));
+
+      setProgress(newProgress);
     };
 
+    const throttledScroll = () => requestAnimationFrame(handleScroll);
+
     window.addEventListener("scroll", throttledScroll, { passive: true });
-    handleScroll();
+    window.addEventListener("resize", updateBounds);
 
     return () => {
       window.removeEventListener("scroll", throttledScroll);
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
+      window.removeEventListener("resize", updateBounds);
     };
-  }, [handleScroll]);
+  }, [updateBounds]);
+
+  const totalHeight = `${projects.length * 150}vh`;
 
   return (
     <section
       ref={containerRef}
-      className="relative bg-[#080807] py-10 md:py-20"
-      style={{ minHeight: `${projects.length * 220}vh` }}
+      className="relative bg-[#080807] w-full"
+      style={{ height: `calc(${totalHeight} + 200px)` }}
+      id="projects"
     >
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <div className="relative w-full h-full">
-          {projects.map((project, index) => (
-            <ProjectCard
-              key={`project-${index}`}
-              project={project}
-              index={index}
-              sectionProgress={sectionProgress}
-              allProjects={projects}
-            />
-          ))}
+      {/* Header Section */}
+      <div className="sticky top-0 pt-16 pb-8 z-20 bg-[#080807]/80 backdrop-blur-sm">
+        <div className="container mx-auto px-6">
+          <div className="text-center">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white">
+              Projects
+            </h2>
+            <p className="text-white text-lg md:text-xl max-w-2xl mx-auto font-inter">
+              Showcasing real-world solutions and creative implementations
+            </p>
+          </div>
         </div>
+      </div>
+
+      {/* Scrolling Projects Container */}
+      <div className="sticky top-0 w-full h-screen overflow-hidden flex items-center justify-center">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.03),transparent_50%)] pointer-events-none" />
+
+        {projects.map((project, i) => (
+          <ProjectCard
+            key={i}
+            project={project}
+            index={i}
+            totalProjects={projects.length}
+            sectionProgress={progress}
+          />
+        ))}
       </div>
     </section>
   );
