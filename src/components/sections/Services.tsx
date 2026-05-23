@@ -85,8 +85,6 @@ export default function Services() {
                   style={{ background: service.accent }}
                   role="presentation"
                   aria-label={`${service.title} indicator`}
-                />                  className="w-2 h-2 rounded-full"
-                  style={{ background: service.accent }}
                 />
               </div>
 

@@ -28,8 +28,9 @@ export default function Hero() {
       <div className="flex items-center justify-between py-7 border-b border-[#1a1a1a]">
         <div className="flex items-center gap-3">
           <div className="w-2.5 h-2.5 rounded-full bg-[#FF5733]" />
-          <span className="font-syne font-bold text-sm text-white tracking-wide">Samuel Dorkey</span>            Sloane
-          </span>
+          <span className="font-syne font-bold text-sm text-white tracking-wide">
+            Samuel Dorkey
+          </span>{" "}
         </div>
         <div className="flex items-center gap-2 font-mono text-[12px] tracking-[0.12em] uppercase text-[#555]">
           <span className="w-1.5 h-1.5 rounded-full bg-[#4CAF50] animate-pulse" />
@@ -122,7 +123,7 @@ export default function Hero() {
             className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-12 mt-12 border-t border-[#1a1a1a]"
           >
             {[
-              { label: "Based in", value: "Accra, Greater Accra Region" },
+              { label: "Based in", value: "Accra, Ghana" },
               { label: "Specialisation", value: "React · Astro · Supabase" },
               { label: "Status", value: "Open to freelance & contracts" },
             ].map((item, i) => (

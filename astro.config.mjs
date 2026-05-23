@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
+import { fileURLToPath } from 'url';
 
 export default defineConfig({
   site: 'https://sloanedev.vercel.app',
@@ -15,7 +16,7 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        '@': '/src'
+        '@': fileURLToPath(new URL('./src', import.meta.url))
       }
     }
   }
