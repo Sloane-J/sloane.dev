@@ -53,7 +53,7 @@ export default function Hero() {
             variants={fadeUp}
             initial={false}
             animate="visible"
-            className="flex items-center gap-3 font-mono text-[12px] tracking-[0.15em] uppercase text-zinc-400"
+            className="flex items-center gap-3 font-mono text-[12px] tracking-[0.15em] uppercase text-[#FF5733]"
           >
             <div className="w-10 h-px bg-[#333]" />
             001 / Introduction
@@ -78,11 +78,11 @@ export default function Hero() {
             animate="visible"
             className="flex items-center gap-4 w-full max-w-2xl"
           >
-            <span className="font-mono text-[12px] tracking-[0.18em] uppercase text-[#333] whitespace-nowrap">
+            <span className="font-mono text-[12px] tracking-[0.18em] uppercase text-[#777] sm:whitespace-nowrap">
               Software Developer
             </span>
             <div className="flex-1 h-px bg-[#1e1e1e]" />
-            <span className="font-mono text-[12px] tracking-[0.18em] uppercase text-[#333] whitespace-nowrap">
+            <span className="font-mono text-[12px] tracking-[0.18em] uppercase text-[#777] sm:whitespace-nowrap">
               Ghana
             </span>
           </motion.div>
@@ -95,9 +95,14 @@ export default function Hero() {
             animate="visible"
             className="font-mono text-sm text-zinc-400 leading-[1.8] max-w-xl"
           >
-            I build full stack web apps, mobile applications, and
-            production-ready digital products — from clean frontends to reliable
-            backends and real deployments.
+            Software developer with 4+ years shipping across design and code —
+            from educational platforms and management systems to indie web
+            systems.
+            <br />
+            <br />
+            Currently freelance. Building cohesive, production-ready software
+            for underserved markets: financial tools, educational platforms, and
+            retail systems. Open-source work includes Legdr, Acadex, Expiro — and more.
           </motion.p>
 
           <motion.div
@@ -109,7 +114,7 @@ export default function Hero() {
           >
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-[#FF5733] hover:opacity-85 transition-opacity text-white font-mono font-bold text-sm tracking-wide px-6 py-3.5 rounded-sm"
+              className="inline-flex items-center gap-2 bg-[#FF5733] hover:opacity-85 transition-opacity text-white font-syne font-bold text-sm tracking-wide px-6 py-3.5 rounded-sm"
             >
               Start a project →
             </a>
@@ -132,7 +137,10 @@ export default function Hero() {
           >
             {[
               { label: "Based in", value: "Accra, Ghana" },
-              { label: "Specialisation", value: "Laravel · React · Supabase . AstroJS" },
+              {
+                label: "Specialisation",
+                value: "Laravel · React · Supabase . AstroJS",
+              },
               { label: "Status", value: "Open to freelance & contracts" },
             ].map((item, i) => (
               <div key={i} className="flex flex-col gap-1.5">
@@ -154,7 +162,7 @@ export default function Hero() {
           <div className="w-10 h-px bg-[#333]" />
           Scroll to explore
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {["React", "Astro", "TypeScript", "Supabase"].map((tag) => (
             <span
               key={tag}

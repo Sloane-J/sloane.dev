@@ -9,7 +9,7 @@ const services = [
     title: "Frontend Development",
     description:
       "Fast, accessible interfaces built for production — not just prototypes.",
-    tools: ["React", "Astro", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    tools: ["React", "Astro", "TypeScript", "Tailwind CSS"],
     accent: "#FF5733",
   },
   {
@@ -17,7 +17,7 @@ const services = [
     title: "Full Stack Development",
     description:
       "End-to-end apps from database to UI, shipped and maintained in production.",
-    tools: ["Node.js", "Supabase", "PostgreSQL", "Hono", "Laravel"],
+    tools: ["Node.js", "Supabase", "Hono", "Laravel"],
     accent: "#2196F3",
   },
   {
@@ -25,7 +25,7 @@ const services = [
     title: "Mobile Development",
     description:
       "Cross-platform apps with offline support and native device integrations.",
-    tools: ["React Native", "Expo", "PWA", "SQLite"],
+    tools: ["Flutter","React Native", "Expo", "PWA"],
     accent: "#E91E63",
   },
   {

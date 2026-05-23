@@ -43,7 +43,7 @@ function Footer() {
         {/* Left Column — Brand Hero */}
         <div className="lg:col-span-5 p-8 lg:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1a1a1a]">
           <div className="flex flex-col gap-6">
-            <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400">
+            <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-[#FF5733]">
               007 / Brand
             </span>
 
@@ -84,7 +84,7 @@ function Footer() {
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#FF5733] animate-pulse" />
               <span className="font-mono text-sm text-white">
-                Available for select projects
+                Available for new projects
               </span>
             </div>
           </div>
@@ -175,8 +175,7 @@ function Footer() {
       {/* Ground-level Meta Information */}
       <div className="max-w-6xl mx-auto mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 px-2">
         <p className="font-mono text-[12px] tracking-wide text-zinc-400">
-          © {new Date().getFullYear()} Samuel Dorkey Jr. Systems platform
-          execution.
+          © {new Date().getFullYear()} Samuel Dorkey Jr
         </p>
         <div className="flex items-center gap-6 font-mono text-[12px]">
           <a

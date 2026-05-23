@@ -253,7 +253,7 @@ const ProjectCard = memo(
               {String(totalProjects).padStart(2, "0")}
             </span>
             <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400">
-              002 / Selected work
+              002 / Selected works
             </span>
           </div>
 
@@ -378,10 +378,10 @@ const Projects = () => {
     const handleScroll = () => {
       const { top, height, vh } = bounds.current;
       const scrollY = window.scrollY;
-      const startOffset = top - vh;
-      const distance = scrollY - startOffset;
-      const totalScrollable = height + vh;
-      setProgress(Math.max(0, Math.min(1, distance / totalScrollable)));
+      const start = top - vh * 0.5;
+      const end = top + height - vh;
+      const raw = (scrollY - start) / (end - start);
+      setProgress(Math.max(0, Math.min(1, raw)));
     };
 
     const throttledScroll = () => requestAnimationFrame(handleScroll);
@@ -405,12 +405,9 @@ const Projects = () => {
       <div className="sticky top-0 z-20 bg-[#080807] border-b border-[#1a1a1a]">
         <div className="max-w-6xl mx-auto px-6 lg:px-10 py-6 flex items-center justify-between">
           <div className="flex flex-col gap-1">
-            <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400">
-              002 / Selected work
+            <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-[#FF5733]">
+              002 / Selected works
             </span>
-            <h2 className="font-syne font-extrabold text-2xl text-white">
-              Projects & <span className="text-[#FF5733]">work</span>
-            </h2>
           </div>
           <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400">
             {projects.length} projects

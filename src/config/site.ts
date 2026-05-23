@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Samuel Dorkey",
-  title: "Samuel Dorkey — Freelance Web Developer",
+  title: "Samuel Dorkey — Freelance Software Developer",
   description:
     "Helping creative brands and studios gain an unfair advantage with story-driven and results-focused websites. Based in Ghana. Working globally.",
   url: "https://sloanedev.vercel.app",
@@ -29,6 +29,7 @@ export const siteConfig = {
       "Samuel Dorkey",
       "Sloane Jnr",
       "Ghana",
+      "Freelance",
     ],
     themeColor: "#121212",
   },

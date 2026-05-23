@@ -34,7 +34,7 @@ const About = () => {
     <section id="about" className="bg-[#080807] px-6 lg:px-10 py-20">
       {/* Top bar */}
       <div className="flex items-center justify-between pb-6 border-b border-[#1a1a1a] mb-12 max-w-6xl mx-auto">
-        <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400">
+        <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-[#FF5733]">
           003 / About me
         </span>
         <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400">
@@ -100,9 +100,7 @@ const About = () => {
               className="font-mono text-sm text-zinc-400 leading-[1.85]"
             >
               I build full stack web apps, mobile applications, and
-              production-ready digital products. I care about clean
-              architecture, fast performance, and shipping things that actually
-              work.
+              production-ready digital products. Building cohesive, production-ready software for underserved markets: financial tools, educational platforms, and retail systems. Open-source work includes Legdr, Acadex, Expiro — and more.
             </motion.p>
           </div>
 

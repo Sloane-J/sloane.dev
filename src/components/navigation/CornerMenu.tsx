@@ -167,12 +167,12 @@ function CornerMenu() {
                       transition={{ duration: 0.4, delay: index * 0.04, ease: [0.25, 0.4, 0.25, 1] }}
                     >
                       <div className="flex items-center gap-5">
-                        <span className={`font-mono text-xs font-bold tracking-wider transition-colors duration-200 ${
+                        <span className={`font-mono text-xs font-normal tracking-wider transition-colors duration-200 ${
                           isActive ? "text-[#FF5733]" : "text-zinc-400 group-hover:text-[#FF5733]"
                         }`}>
                           {item.num}
                         </span>
-                        <span className={`font-syne font-extrabold text-2xl transition-colors duration-200 ${
+                        <span className={`font-syne font-bold text-2xl transition-colors duration-200 ${
                           isActive ? "text-[#FF5733]" : "text-zinc-100 group-hover:text-[#FF5733]"
                         }`}>
                           {item.name}
@@ -181,7 +181,7 @@ function CornerMenu() {
                       
                       <div className="flex items-center gap-3">
                         {isActive && (
-                          <span className="font-mono text-[10px] tracking-widest text-[#FF5733] bg-[#FF5733]/10 border border-[#FF5733]/30 px-2 py-1 rounded-xs font-bold uppercase">
+                          <span className="font-mono text-[10px] tracking-widest text-[#FF5733] bg-[#FF5733]/10 border border-[#FF5733]/30 px-2 py-1 rounded-xs font-normal uppercase">
                             Active
                           </span>
                         )}
@@ -207,7 +207,7 @@ function CornerMenu() {
                   <span className="tracking-[0.15em] text-zinc-400 uppercase font-semibold">System Execution</span>
                   <div className="flex items-center gap-2.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#FF5733] animate-pulse" />
-                    <span className="text-zinc-100 tracking-wider font-bold">ONLINE FRAME</span>
+                    <span className="text-zinc-100 tracking-wider font-normal">ONLINE FRAME</span>
                   </div>
                 </div>
               </div>

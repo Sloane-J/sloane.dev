@@ -85,7 +85,7 @@ function Blog() {
     <section id="blog" className="bg-[#080807] px-6 lg:px-10 py-20">
       {/* Top bar */}
       <div className="max-w-6xl mx-auto flex items-center justify-between pb-6 border-b border-[#1a1a1a] mb-12">
-        <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400">
+        <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-[#FF5733]">
           005 / Writing & projects
         </span>
         <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400">
