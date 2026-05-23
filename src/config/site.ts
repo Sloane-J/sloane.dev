@@ -12,14 +12,14 @@ export const siteConfig = {
   },
   creator: {
     name: "Samuel Dorkey",
-    role: "Full Stack Developer",
+    role: "Software Developer",
     location: "Ghana",
     availability: "Open to opportunities",
     email: "samueldorkeyjr@gmail.com",
   },
   metadata: {
     keywords: [
-      "Full Stack Developer",
+      "Software Developer",
       "Web Developer",
       "React",
       "TypeScript",

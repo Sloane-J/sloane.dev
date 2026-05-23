@@ -1,229 +1,154 @@
 "use client";
-import React, { useState, useEffect, useMemo, memo } from "react";
+
+import { useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { PhoneIncoming, ArrowDown } from "lucide-react";
-
-// Optimized Button Component with variants
-interface ButtonProps {
-  href: string;
-  variant: "primary" | "secondary";
-  children: React.ReactNode;
-  icon: React.ReactNode;
-}
-
-const Button = memo(({ href, variant, children, icon }: ButtonProps) => {
-  const baseClasses = "inline-flex items-center justify-center gap-2 lg:gap-3 rounded-full px-4 py-2 sm:px-5 sm:py-2.5 lg:px-6 lg:py-3 text-sm md:text-base font-medium transition-all duration-300 focus:outline-none w-auto";
-
-  const variantClasses = {
-    primary: "bg-gradient-to-r from-orange-600 to-orange-700 text-white shadow-md hover:from-orange-500 hover:to-orange-600 hover:shadow-lg hover:-translate-y-0.5 focus:ring-2 focus:ring-orange-500/70",
-    secondary: "border border-gray-700 bg-black/40 text-gray-300 backdrop-blur-md hover:bg-black/60 hover:text-white hover:border-gray-500 hover:-translate-y-0.5 focus:ring-2 focus:ring-gray-500/50"
-  };
-
-  return (
-    <a href={href} className={`${baseClasses} ${variantClasses[variant]}`}>
-      <span className="font-inter whitespace-nowrap">{children}</span>
-      {icon}
-    </a>
-  );
-});
-
-Button.displayName = "Button";
-
-// Simplified RotatingText with fade animation only
-interface RotatingTextProps {
-  texts: string[];
-  className?: string;
-  rotationInterval?: number;
-}
-
-const RotatingText = memo(({ texts, className = "", rotationInterval = 3000 }: RotatingTextProps) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const shouldReduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    if (shouldReduceMotion) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % texts.length);
-    }, rotationInterval);
-
-    return () => clearInterval(interval);
-  }, [texts.length, rotationInterval, shouldReduceMotion]);
-
-  return (
-    <span className={`relative inline-block ${className}`}>
-      <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .rotating-text {
-          animation: fadeIn 0.5s ease-out;
-        }
-      `}</style>
-      <span key={currentIndex} className="rotating-text">
-        {texts[currentIndex]}
-      </span>
-    </span>
-  );
-});
-
-RotatingText.displayName = "RotatingText";
-
-// Cached profile image component
-const profilePicSrc = "/images/Profile-Pic.jpg";
-
-const ProfileImage = memo(({ size, className, priority = false }: { size: string; className: string; priority?: boolean }) => (
-  <img
-    src={profilePicSrc}
-    alt="Samuel - Full Stack Developer"
-    className={className}
-    loading={priority ? "eager" : "lazy"}
-    width={size === "small" ? "44" : "320"}
-    height={size === "small" ? "44" : "320"}
-  />
-));
-
-ProfileImage.displayName = "ProfileImage";
 
 export default function Hero() {
   const shouldReduceMotion = useReducedMotion();
 
-  // Memoized animation variants
-  const containerVariants = useMemo(() => ({
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.3,
-        when: shouldReduceMotion ? "none" : "beforeChildren",
-      },
-    },
-  }), [shouldReduceMotion]);
-
-  const itemVariants = useMemo(() => ({
-    hidden: { opacity: 0, y: 20 },
-    visible: {
+  const fadeUp = useMemo(() => ({
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+    visible: (i: number) => ({
       opacity: 1,
       y: 0,
-      transition: { duration: 0.3, ease: "easeOut" },
-    },
-  }), []);
-
-  const imageVariants = useMemo(() => ({
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1 },
-  }), []);
+      transition: { duration: 0.4, delay: i * 0.08, ease: "easeOut" },
+    }),
+  }), [shouldReduceMotion]);
 
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center bg-[#080807] relative"
       aria-labelledby="hero-heading"
+      className="min-h-screen flex flex-col bg-[#080807] px-6 lg:px-10"
     >
-      {/* Logo Image (Top-Left) */}
-      <div className="absolute top-4 left-4 lg:top-6 lg:left-6">
-        <ProfileImage
-          size="small"
-          className="w-10 h-10 lg:w-11 lg:h-11 object-cover rounded-full"
-          priority={true}
-        />
+      {/* Top bar */}
+      <div className="flex items-center justify-between py-7 border-b border-[#1a1a1a]">
+        <div className="flex items-center gap-3">
+          <div className="w-2.5 h-2.5 rounded-full bg-[#FF5733]" />
+          <span className="font-syne font-bold text-sm text-white tracking-wide">Sloane</span>
+        </div>
+        <div className="flex items-center gap-2 font-mono text-[10px] tracking-[0.12em] uppercase text-[#555]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#4CAF50] animate-pulse" />
+          Available for work
+        </div>
       </div>
 
-      {/* Text (Top-Right) */}
-      <div className="absolute top-4 right-4 lg:top-6 lg:right-6">
-        <h3 className="text-3xl lg:text-4xl font-saint mb-0 text-white">
-          Sloane
-        </h3>
-      </div>
-
-      <div className="container mx-auto px-6 lg:px-16">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left side - Text content */}
-          <motion.div
-            className="space-y-8 lg:space-y-12 text-center lg:text-left"
-            variants={containerVariants}
+      {/* Main Structural Frame */}
+      <div className="flex-1 flex flex-col justify-center border-x border-[#1a1a1a] py-20">
+        <div className="max-w-5xl w-full mx-auto flex flex-col gap-10 px-4 lg:px-8">
+          
+          <motion.span
+            custom={0}
+            variants={fadeUp}
+            initial="hidden"
             animate="visible"
+            className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#444]"
           >
-            <motion.div variants={itemVariants}>
-              {/* Available badge - hidden on mobile */}
-              <div className="hidden lg:inline-block mb-8 px-4 py-2 bg-[#171717] rounded-full border border-gray-600/30">
-                <span className="flex items-center gap-1 text-sm text-white font-medium">
-                  Available for new works
-                </span>
-              </div>
+            001 / Introduction
+          </motion.span>
 
-              <h1
-                id="hero-heading"
-                className="text-4xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6 lg:mb-8"
-              >
-                Hi, I am Samuel
-              </h1>
+          {/* Single line name layout */}
+          <motion.h1
+            id="hero-heading"
+            custom={1}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="font-syne font-extrabold text-[clamp(2.2rem,6vw,5.5rem)] leading-none text-white tracking-tight"
+          >
+            Samuel <span className="text-[#FF5733]">Dorkey</span>
+          </motion.h1>
 
-              {/* Full Stack Dev + Rotating Text INLINE */}
-              <div className="mb-6 lg:mb-8">
-                <div className="flex flex-wrap items-baseline justify-center lg:justify-start gap-2">
-                  <span className="text-lg md:text-2xl lg:text-3xl xl:text-4xl font-light text-gray-300">
-                    Full Stack Developer Crafting
-                  </span>
-                  <RotatingText
-                    texts={[
-                      "Scalable Apps",
-                      "Modern Websites",
-                      "User Experiences",
-                      "Digital Solutions",
-                    ]}
-                    className="text-lg md:text-2xl lg:text-3xl xl:text-4xl font-semibold text-orange-500 drop-shadow-[0_2px_6px_rgba(234,88,12,0.6)]"
-                    rotationInterval={3000}
-                  />
-                </div>
-              </div>
-            </motion.div>
+          <motion.div
+            custom={2}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="flex items-center gap-4 w-full max-w-2xl"
+          >
+            <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-[#555] whitespace-nowrap">
+              Software Developer
+            </span>
+            <div className="flex-1 h-px bg-[#1e1e1e]" />
+            <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-[#555] whitespace-nowrap">
+              Ghana
+            </span>
+          </motion.div>
 
-            {/* Buttons */}
-            <motion.div
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-3 lg:gap-4 justify-center lg:justify-start items-center sm:items-start"
+          {/* Expanded layout text width to balance the missing image */}
+          <motion.p
+            custom={3}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="font-mono text-xs text-[#666] leading-[1.8] max-w-xl"
+          >
+            I build full stack web apps, mobile applications, and production-ready
+            digital products — from clean frontends to reliable backends and real deployments.
+          </motion.p>
+
+          <motion.div
+            custom={4}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            className="flex flex-wrap gap-3 pt-4"
+          >
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 bg-[#FF5733] hover:opacity-85 transition-opacity text-white font-syne font-bold text-xs tracking-wide px-6 py-3.5 rounded-sm"
             >
-              <Button
-                href="#contact"
-                variant="primary"
-                icon={<PhoneIncoming className="w-4 h-4 md:w-5 md:h-5" />}
-              >
-                Take The First Step
-              </Button>
-
-              <Button
-                href="#projects"
-                variant="secondary"
-                icon={<ArrowDown className="w-4 h-4 md:w-5 md:h-5" />}
-              >
-                Explore My Work
-              </Button>
-            </motion.div>
+              Start a project →
+            </a>
+            
+            <a
+              href="#projects"
+              className="inline-flex items-center gap-2 border border-[#222] hover:border-[#444] hover:text-white transition-colors text-[#555] font-mono text-[11px] tracking-[0.1em] px-6 py-3.5 rounded-sm"
+            >
+              Explore work ↓
+            </a>
           </motion.div>
 
-          {/* Right side - Profile image */}
-          <motion.div
-            className="flex justify-center lg:justify-end"
-            variants={imageVariants}
+          {/* Sub-meta metrics replacing original profile details */}
+          <motion.div 
+            custom={5}
+            variants={fadeUp}
+            initial="hidden"
             animate="visible"
-            transition={{ duration: 0.3}}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-12 mt-12 border-t border-[#1a1a1a]"
           >
-            <div className="relative group">
-              <div className="w-48 h-48 md:w-56 md:h-56 lg:w-80 lg:h-80 rounded-full overflow-hidden shadow-2xl ring-4 ring-[#171717] ring-offset-4 ring-offset-[#0C0E0C] transition-all duration-300 group-hover:ring-gray-600">
-                <ProfileImage
-                  size="large"
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  priority={true}
-                />
+            {[
+              { label: "Based in", value: "Ho, Volta Region" },
+              { label: "Specialisation", value: "React · Astro · Supabase" },
+              { label: "Status", value: "Open to freelance & contracts" },
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col gap-1.5">
+                <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-[#444]">
+                  {item.label}
+                </span>
+                <span className="font-mono text-xs text-[#777]">{item.value}</span>
               </div>
-
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-orange-600 rounded-full animate-pulse"></div>
-              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-pink-400 rounded-full animate-pulse delay-1000"></div>
-            </div>
+            ))}
           </motion.div>
+
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="flex items-center justify-between py-5 border-t border-[#1a1a1a]">
+        <div className="flex items-center gap-3 font-mono text-[10px] tracking-[0.15em] uppercase text-[#333]">
+          <div className="w-10 h-px bg-[#333]" />
+          Scroll to explore
+        </div>
+        <div className="flex gap-2">
+          {["React", "Astro", "TypeScript", "Supabase"].map(tag => (
+            <span
+              key={tag}
+              className="font-mono text-[10px] tracking-wide text-[#333] border border-[#1e1e1e] px-2.5 py-1 rounded-sm"
+            >
+              {tag}
+            </span>
+          ))}
         </div>
       </div>
     </section>

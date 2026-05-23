@@ -1,397 +1,220 @@
 "use client";
 
+import { memo } from "react";
 import { motion } from "framer-motion";
-import {
-  PhoneCall,
-  ArrowRight,
-  Clock,
-  Calendar,
-  MessageSquare,
-  Sparkles,
-} from "lucide-react";
+import { PhoneCall, Calendar, Clock, MessageSquare, ArrowUpRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function ContactCard() {
+const steps = [
+  { icon: Calendar, num: "01", label: "Choose your time" },
+  { icon: Clock,    num: "02", label: "30 min discussion" },
+  { icon: MessageSquare, num: "03", label: "Share your vision" },
+];
+
+function ContactCard() {
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    // Load Cal.com embed script
     const script = document.createElement("script");
     script.src = "https://cal.com/embed.js";
     script.async = true;
     document.body.appendChild(script);
-
     return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
+      if (document.body.contains(script)) document.body.removeChild(script);
     };
   }, []);
 
-  // Function to open Cal.com popup
   const openCalPopup = () => {
-    if (typeof window.Cal !== "undefined") {
-      Cal("init", {
+    const globalCal = (window as any).Cal;
+    if (typeof globalCal !== "undefined") {
+      globalCal("init", {
         calLink: "sloane-jnr/project-discussion",
-        config: {
-          layout: "month_view",
-          theme: "dark",
-        },
+        config: { layout: "month_view", theme: "dark" },
       });
-      Cal("ui", {
-        styles: { branding: { brandColor: "#ea580c" } },
+      globalCal("ui", {
+        styles: { branding: { brandColor: "#FF5733" } },
         hideEventTypeDetails: false,
       });
-      Cal("open");
+      globalCal("open");
     } else {
-      console.log("Cal.com embed script not loaded yet");
       window.open("https://cal.com/sloane-jnr/project-discussion", "_blank");
     }
   };
 
-  // Staggered text animation for heading
-  const headingWords = "Ready To Build Something Extraordinary?".split(" ");
-
   return (
     <section
       id="contact"
-      className="relative py-20 md:py-32 flex items-center justify-center overflow-hidden bg-[#080807]"
+      className="bg-[#080807] px-6 lg:px-10 py-20"
     >
-      {/* Animated gradient background with CSS */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 animate-gradient-slow" />
+      {/* Top bar */}
+      <div className="max-w-6xl mx-auto flex items-center justify-between pb-6 border-b border-[#1a1a1a] mb-12">
+        <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]">
+          006 / Contact
+        </span>
+        <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]">
+          Book a call
+        </span>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-10 px-4 md:px-8 lg:px-20 max-w-7xl w-full mx-auto text-center flex flex-col items-center justify-center"
-      >
-        {/* Sparkle icon with CSS animations */}
-        <motion.div
-          initial={{ scale: 0, rotate: -180 }}
-          whileInView={{ scale: 1, rotate: 0 }}
-          viewport={{ once: true }}
-          transition={{
-            duration: 0.6,
-            type: "spring",
-            stiffness: 200,
-            delay: 0.2,
-          }}
-          className="mb-6"
-        >
-          <div className="relative">
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-orange-600 to-orange-400 flex items-center justify-center animate-spin-slow">
-              <Sparkles className="w-8 h-8 md:w-10 md:h-10 text-white animate-pulse-scale" />
+      {/* Main grid */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 border border-[#1a1a1a]">
+
+        {/* Left — heading + CTA */}
+        <div className="flex flex-col justify-between p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#1a1a1a]">
+
+          <div className="flex flex-col gap-6">
+            <motion.span
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4 }}
+              className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]"
+            >
+              006 / Let's talk
+            </motion.span>
+
+            {/* Word-by-word heading kept from original */}
+            <div className="flex flex-wrap gap-x-3 gap-y-1">
+              {["Ready to", "build something", "extraordinary?"].map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1, ease: [0.25, 0.4, 0.25, 1] }}
+                  className="font-syne font-extrabold text-3xl lg:text-4xl xl:text-5xl text-white leading-tight"
+                >
+                  {i === 1
+                    ? <><span className="text-[#FF5733]">{word}</span></>
+                    : word}
+                </motion.span>
+              ))}
             </div>
 
-            {/* Glow effect with CSS */}
-            <div className="absolute inset-0 rounded-full bg-orange-500 blur-xl -z-10 animate-glow" />
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.35 }}
+              className="font-mono text-xs text-[#555] leading-[1.85] max-w-sm"
+            >
+              Schedule a free 30-minute call and let's discuss how we can work together to bring your project to life.
+            </motion.p>
           </div>
-        </motion.div>
 
-        {/* Heading with word-by-word animation */}
-        <div className="mb-6 md:mb-8 overflow-hidden">
+          {/* CTA button */}
           <motion.div
-            initial={{ y: 20 }}
-            whileInView={{ y: 0 }}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-wrap justify-center gap-2 md:gap-3"
+            transition={{ duration: 0.4, delay: 0.5 }}
+            className="mt-12"
           >
-            {headingWords.map((word, index) => (
+            <motion.button
+              onClick={openCalPopup}
+              onHoverStart={() => setIsHovering(true)}
+              onHoverEnd={() => setIsHovering(false)}
+              whileTap={{ scale: 0.97 }}
+              className="group relative inline-flex items-center gap-3 bg-[#FF5733] hover:opacity-90 transition-opacity text-white font-syne font-bold text-sm tracking-wide px-8 py-4 rounded-sm overflow-hidden w-full sm:w-auto justify-center"
+            >
+              {/* Shimmer on hover */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -skew-x-12"
+                initial={{ x: "-200%" }}
+                animate={isHovering ? { x: "200%" } : { x: "-200%" }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              />
+
               <motion.span
-                key={index}
-                initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * 0.08 + 0.3,
-                  ease: [0.25, 0.4, 0.25, 1],
-                }}
-                className="text-3xl md:text-5xl lg:text-7xl font-bold text-white inline-block"
+                animate={isHovering ? { rotate: [0, -10, 10, -5, 0] } : {}}
+                transition={{ duration: 0.4 }}
+                className="relative z-10"
               >
-                {word}
+                <PhoneCall className="w-4 h-4" />
               </motion.span>
-            ))}
+
+              <span className="relative z-10">Book your call</span>
+
+              <motion.span
+                animate={isHovering ? { x: [0, 4, 0] } : {}}
+                transition={{ duration: 0.4, repeat: isHovering ? Infinity : 0 }}
+                className="relative z-10"
+              >
+                <ArrowUpRight className="w-4 h-4" />
+              </motion.span>
+            </motion.button>
+
+            <p className="font-mono text-[10px] tracking-[0.12em] uppercase text-[#333] mt-4">
+              No commitment required · Free consultation
+            </p>
           </motion.div>
         </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="text-gray-400 text-lg md:text-xl max-w-2xl mb-12 md:mb-16 px-4 font-inter"
-        >
-          Let's turn your vision into reality. Schedule a call and let's discuss
-          how we can work together.
-        </motion.p>
-
-        {/* Features grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 1 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12 md:mb-16 w-full max-w-4xl"
-        >
-          {[
-            {
-              icon: Calendar,
-              text: "Choose Your Time",
-              color: "from-orange-600 to-orange-500",
-            },
-            {
-              icon: Clock,
-              text: "30 Min Discussion",
-              color: "from-orange-500 to-orange-400",
-            },
-            {
-              icon: MessageSquare,
-              text: "Share Your Vision",
-              color: "from-orange-600 to-orange-500",
-            },
-          ].map((item, index) => (
+        {/* Right — steps */}
+        <div className="flex flex-col divide-y divide-[#1a1a1a]">
+          {steps.map((step, i) => (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              key={i}
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{
-                duration: 0.5,
-                delay: 1.1 + index * 0.1,
-                type: "spring",
-                stiffness: 100,
-              }}
-              whileHover={{
-                y: -8,
-                transition: { duration: 0.2 },
-              }}
-              className="relative group"
+              transition={{ duration: 0.4, delay: 0.15 + i * 0.1 }}
+              className="group flex items-center gap-6 p-8 lg:p-10 hover:bg-[#0d0d0c] transition-colors duration-200 cursor-default"
             >
-              <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8 transition-all duration-300 hover:border-orange-500/30 overflow-hidden">
-                {/* Hover gradient effect */}
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    background: `linear-gradient(135deg, rgba(234, 88, 12, 0.1) 0%, transparent 100%)`,
-                  }}
-                />
+              {/* Number */}
+              <span className="font-syne font-extrabold text-4xl text-[#FF5733]/10 group-hover:text-[#FF5733]/20 transition-colors duration-200 select-none w-12 flex-shrink-0">
+                {step.num}
+              </span>
 
-                <div className={`inline-flex bg-gradient-to-br ${item.color} p-4 rounded-xl mb-4 shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3`}>
-                  <item.icon className="w-6 h-6 md:w-7 md:h-7 text-white" />
-                </div>
-                <p className="text-gray-200 text-base md:text-lg font-medium relative z-10">
-                  {item.text}
-                </p>
+              {/* Icon */}
+              <div className="w-10 h-10 flex items-center justify-center border border-[#222] group-hover:border-[#FF5733]/30 transition-colors duration-200 rounded-sm flex-shrink-0">
+                <step.icon className="w-4 h-4 text-[#444] group-hover:text-[#FF5733]/70 transition-colors duration-200" />
               </div>
+
+              {/* Label */}
+              <div className="flex flex-col gap-1">
+                <span className="font-syne font-bold text-base text-white leading-none">
+                  {step.label}
+                </span>
+                <span className="font-mono text-[10px] tracking-[0.15em] uppercase text-[#333]">
+                  Step {step.num}
+                </span>
+              </div>
+
+              {/* Arrow */}
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#222] group-hover:text-[#FF5733]/40 transition-colors duration-200 ml-auto flex-shrink-0" />
             </motion.div>
           ))}
-        </motion.div>
 
-        {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{
-            duration: 0.6,
-            delay: 1.4,
-            type: "spring",
-            stiffness: 150,
-          }}
-          onHoverStart={() => setIsHovering(true)}
-          onHoverEnd={() => setIsHovering(false)}
-          className="relative w-full max-w-md"
-        >
-          <motion.button
-            onClick={openCalPopup}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className="font-inter relative w-full py-5 md:py-6 px-8 md:px-10 rounded-full font-bold flex items-center justify-center gap-4 text-xl md:text-2xl transition-all duration-300 bg-gradient-to-r from-orange-600 to-orange-400 hover:from-orange-500 hover:to-orange-300 text-white group overflow-hidden shadow-2xl shadow-orange-500/20"
+          {/* Bottom meta cell */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.5 }}
+            className="p-8 lg:p-10 flex items-center justify-between mt-auto"
           >
-            {/* Shimmer effect with CSS */}
-            <div className={`absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 ${isHovering ? 'animate-shimmer' : '-translate-x-full'}`} />
-
-            <div className={`flex-shrink-0 relative z-10 transition-transform duration-300 ${isHovering ? 'animate-phone-ring' : ''}`}>
-              <PhoneCall className="w-5 h-5 sm:w-6 sm:h-6 md:w-6 md:h-6" />
+            <div className="flex flex-col gap-1">
+              <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-[#333]">
+                Response time
+              </span>
+              <span className="font-mono text-xs text-[#FF5733]">
+                Within 24 hours
+              </span>
             </div>
-
-            <span className="relative z-10 font-semibold text-sm sm:text-base">
-              Book Your Call Now
-            </span>
-
-            <div className={`flex-shrink-0 relative z-10 transition-transform duration-300 ${isHovering ? 'animate-arrow-bounce' : ''}`}>
-              <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-6 md:h-6" />
+            <div className="flex flex-col gap-1 text-right">
+              <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-[#333]">
+                Timezone
+              </span>
+              <span className="font-mono text-xs text-[#777]">
+                GMT+0 · Ho, Ghana
+              </span>
             </div>
-
-            {/* Button glow with CSS */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-600 to-orange-400 blur-xl opacity-50 animate-button-glow -z-10" />
-          </motion.button>
-
-          {/* Pulsing rings with CSS */}
-          {isHovering && (
-            <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute inset-0 border-2 border-orange-500 rounded-full animate-ping-ring" style={{ animationDelay: '0s' }} />
-              <div className="absolute inset-0 border-2 border-orange-500 rounded-full animate-ping-ring" style={{ animationDelay: '0.3s' }} />
-              <div className="absolute inset-0 border-2 border-orange-500 rounded-full animate-ping-ring" style={{ animationDelay: '0.6s' }} />
-            </div>
-          )}
-        </motion.div>
-
-        {/* Bottom tagline */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 1.6 }}
-          className="mt-8 text-gray-500 text-sm md:text-base font-inter"
-        >
-          No commitment required · Free consultation · Let's explore
-          possibilities
-        </motion.p>
-      </motion.div>
-
-      <style>{`
-        @keyframes gradient-slow {
-          0%, 100% {
-            background: radial-gradient(circle at 20% 50%, rgba(234, 88, 12, 0.08) 0%, transparent 50%);
-          }
-          33% {
-            background: radial-gradient(circle at 80% 50%, rgba(234, 88, 12, 0.08) 0%, transparent 50%);
-          }
-          66% {
-            background: radial-gradient(circle at 50% 80%, rgba(234, 88, 12, 0.08) 0%, transparent 50%);
-          }
-        }
-
-        @keyframes spin-slow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        @keyframes pulse-scale {
-          0%, 100% {
-            transform: scale(1);
-          }
-          50% {
-            transform: scale(1.2);
-          }
-        }
-
-        @keyframes glow {
-          0%, 100% {
-            transform: scale(1);
-            opacity: 0.5;
-          }
-          50% {
-            transform: scale(1.5);
-            opacity: 0.2;
-          }
-        }
-
-        @keyframes shimmer {
-          0% {
-            transform: translateX(-200%) skewX(-12deg);
-          }
-          100% {
-            transform: translateX(200%) skewX(-12deg);
-          }
-        }
-
-        @keyframes phone-ring {
-          0%, 100% {
-            transform: rotate(0deg);
-          }
-          25% {
-            transform: rotate(-10deg);
-          }
-          50% {
-            transform: rotate(10deg);
-          }
-          75% {
-            transform: rotate(-10deg);
-          }
-        }
-
-        @keyframes arrow-bounce {
-          0%, 100% {
-            transform: translateX(0);
-          }
-          50% {
-            transform: translateX(5px);
-          }
-        }
-
-        @keyframes button-glow {
-          0%, 100% {
-            transform: scale(1);
-            opacity: 0.5;
-          }
-          50% {
-            transform: scale(1.2);
-            opacity: 0.7;
-          }
-        }
-
-        @keyframes ping-ring {
-          0% {
-            transform: scale(1);
-            opacity: 0;
-          }
-          50% {
-            opacity: 0.3;
-          }
-          100% {
-            transform: scale(1.3);
-            opacity: 0;
-          }
-        }
-
-        .animate-gradient-slow {
-          animation: gradient-slow 15s linear infinite;
-        }
-
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-
-        .animate-pulse-scale {
-          animation: pulse-scale 2s ease-in-out infinite;
-        }
-
-        .animate-glow {
-          animation: glow 2s ease-in-out infinite;
-        }
-
-        .animate-shimmer {
-          animation: shimmer 0.8s ease-in-out;
-        }
-
-        .animate-phone-ring {
-          animation: phone-ring 0.5s ease-in-out;
-        }
-
-        .animate-arrow-bounce {
-          animation: arrow-bounce 0.6s ease-in-out infinite;
-        }
-
-        .animate-button-glow {
-          animation: button-glow 1.5s ease-in-out infinite;
-        }
-
-        .animate-ping-ring {
-          animation: ping-ring 2s ease-out infinite;
-        }
-      `}</style>
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 }
+
+export default memo(ContactCard);

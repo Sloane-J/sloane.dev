@@ -1,208 +1,133 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Laptop, Search, Rocket, PenTool, Database } from "lucide-react";
+import { Rocket } from "lucide-react";
 
 const services = [
   {
-    title: "Front-End Web Development",
-    icon: Laptop,
-    iconColor: "#FF5733", // Orange
-    description:
-      "Custom web applications built with modern frameworks and best practices.",
-    tools: "React, Astrojs, TypeScript, Tailwind CSS, Framer Motion, Hugo",
+    num: "01",
+    title: "Frontend Development",
+    description: "Fast, accessible interfaces built for production — not just prototypes.",
+    tools: ["React", "Astro", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    accent: "#FF5733",
   },
   {
-    title: "SEO Optimization",
-    icon: Search,
-    iconColor: "#4CAF50", // Green
-    description:
-      "Improve your website's visibility and ranking in search engines.",
-    tools: "Google Analytics, SEMrush, Ahrefs",
+    num: "02",
+    title: "Full Stack Development",
+    description: "End-to-end apps from database to UI, shipped and maintained in production.",
+    tools: ["Node.js", "Supabase", "PostgreSQL", "Hono", "Laravel"],
+    accent: "#2196F3",
   },
   {
-    title: "Wireframe Design",
-    icon: PenTool,
-    iconColor: "#E91E63", // Pink
-    description: "User-centered design solutions that enhance user experience.",
-    tools: "Figma",
+    num: "03",
+    title: "Mobile Development",
+    description: "Cross-platform apps with offline support and native device integrations.",
+    tools: ["React Native", "Expo", "PWA", "SQLite"],
+    accent: "#E91E63",
   },
   {
-    title: "Full-Stack Development",
-    icon: Database,
-    iconColor: "#2196F3", // Blue
-    description: "Robust and scalable backend solutions for your applications.",
-    tools: "Nodejs, Laravel, PHP, MySql, Adonisjs, Supabase, Inertia, Livewire",
+    num: "04",
+    title: "SEO & Deployment",
+    description: "Structured data, sitemaps, Core Web Vitals, and zero-downtime deploys.",
+    tools: ["Vercel", "Cloudflare", "Schema.org", "Search Console"],
+    accent: "#4CAF50",
   },
 ];
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, delay: i * 0.1, ease: "easeOut" },
+  }),
+};
+
 export default function Services() {
-  // Animation variants for staggered card animation from left
-  const cardContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, x: -40 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.3, ease: "easeOut" },
-    },
-  };
-
-  // Animation variants for text content from right
-  const textContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.4,
-      },
-    },
-  };
-
-  const textItemVariants = {
-    hidden: { opacity: 0, x: 40 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.3, ease: "easeOut" },
-    },
-  };
-
   return (
-    <section id="services" className="min-h-screen bg-[#080807] flex flex-col">
-      {/* Header Section */}
-      <div className="flex-shrink-0 pt-16 pb-8">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center"
-          >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white">
-              Services
-            </h2>
-            <p className="text-white text-lg md:text-xl max-w-2xl mx-auto font-inter">
-              Comprehensive solutions for your digital needs
-            </p>
-          </motion.div>
-        </div>
-      </div>
+    <section id="services" className="bg-[#080807] py-20 px-6">
+      <div className="mx-auto max-w-5xl">
 
-      {/* Main Content Section */}
-      <div className="flex-1 flex items-center">
-        <div className="container mx-auto px-6 w-full">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center min-h-[600px]">
-            {/* Left side - Service Cards (7 columns) */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="mb-16"
+        >
+          <p className="text-[11px] uppercase tracking-[0.2em] text-[#FF5733] opacity-80 mb-4 font-mono">
+            What I do
+          </p>
+          <h2 className="font-syne text-5xl md:text-6xl lg:text-7xl font-extrabold leading-none text-white">
+            Services &<br />
+            <span className="text-[#FF5733]">expertise</span>
+          </h2>
+        </motion.div>
+
+        {/* Grid Container */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 border-t border-l border-[#222]">
+          {services.map((service, i) => (
             <motion.div
-              className="lg:col-span-7 grid sm:grid-cols-2 gap-5 lg:gap-6"
-              variants={cardContainerVariants}
+              key={service.num}
+              custom={i}
+              variants={cardVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
+              className="group bg-[#080807] hover:bg-[#111] transition-colors duration-200 p-10 flex flex-col gap-4 border-b border-r border-[#222]"
             >
-              {services.map((service) => (
-                <motion.div
-                  key={service.title}
-                  variants={cardVariants}
-                  whileHover={{ y: -6, scale: 1.02 }}
-                  className="bg-gradient-to-br from-[#232323] to-[#1a1a1a] rounded-lg p-5 hover:from-[#2a2a2a] hover:to-[#232323] transition-all duration-300 border border-gray-800 hover:border-gray-700 shadow-lg"
-                >
-                  <div
-                    className="mb-4 inline-flex p-3 rounded-lg"
-                    style={{ backgroundColor: `${service.iconColor}15` }}
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[11px] tracking-[0.15em] text-[#444]">
+                  {service.num}
+                </span>
+                <div
+                  className="w-2 h-2 rounded-full"
+                  style={{ background: service.accent }}
+                />
+              </div>
+
+              <h3 className="font-syne text-xl font-bold text-white leading-snug">
+                {service.title}
+              </h3>
+
+              <p className="font-mono text-xs text-[#888] leading-relaxed">
+                {service.description}
+              </p>
+
+              <div className="mt-auto pt-5 border-t border-[#1e1e1e] flex flex-wrap gap-1.5">
+                {service.tools.map(tool => (
+                  <span
+                    key={tool}
+                    className="font-mono text-[10px] tracking-wide text-[#555] group-hover:text-[#888] border border-[#222] group-hover:border-[#333] px-2 py-1 rounded-sm transition-colors duration-200"
                   >
-                    <service.icon
-                      className="w-7 h-7"
-                      style={{ color: service.iconColor }}
-                    />
-                  </div>
-                  <h3 className="text-lg lg:text-xl text-white font-bold mb-2">
-                    {service.title}
-                  </h3>
-                  <p className="text-white text-sm mb-3 opacity-90 leading-relaxed font-inter">
-                    {service.description}
-                  </p>
-                  <div className="mt-3 pt-3 border-t border-gray-700 font-inter">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-white mb-1 opacity-80">
-                      Tools & Technologies
-                    </p>
-                    <p className="text-white text-xs opacity-75 leading-relaxed ">
-                      {service.tools}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+                    {tool}
+                  </span>
+                ))}
+              </div>
             </motion.div>
-
-            {/* Right side - Text content (5 columns) */}
-            <motion.div
-              className="lg:col-span-5 flex flex-col justify-center space-y-6 lg:space-y-8"
-              variants={textContainerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <motion.h3
-                variants={textItemVariants}
-                className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white leading-tight"
-              >
-                Elevate Your Digital Presence
-              </motion.h3>
-
-              <motion.p
-                variants={textItemVariants}
-                className="text-white text-base lg:text-lg opacity-90 leading-relaxed font-inter"
-              >
-                In today's competitive landscape, your digital presence is more
-                important than ever. I provide end-to-end solutions that help
-                businesses stand out and achieve their goals.
-              </motion.p>
-
-              <motion.p
-                variants={textItemVariants}
-                className="text-white text-base lg:text-lg opacity-90 leading-relaxed font-inter"
-              >
-                From conceptualization to deployment, I handle every aspect of
-                the development process with meticulous attention to detail and
-                a focus on delivering exceptional results.
-              </motion.p>
-
-              <motion.p
-                variants={textItemVariants}
-                className="text-white text-base lg:text-lg opacity-90 leading-relaxed font-inter"
-              >
-                Every project is approached with a strategic mindset, ensuring
-                that the solutions I provide not only meet your immediate needs
-                but also support your long-term business objectives.
-              </motion.p>
-              <motion.div
-                variants={textItemVariants}
-                className="pt-4 flex justify-center"
-              >
-                <a
-                  href="#contact"
-                  className="inline-flex items-center bg-gradient-to-r from-orange-600 to-orange-400 text-white px-5 py-2.5 rounded-full font-semibold text-sm md:text-base hover:from-orange-400 hover:to-orange-600 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25"
-                >
-                  <Rocket className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-                  Start Your Project
-                </a>
-              </motion.div>
-            </motion.div>
-          </div>
+          ))}
         </div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.4 }}
+          className="mt-12 flex flex-wrap items-center gap-6"
+        >
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 bg-[#FF5733] hover:opacity-85 transition-opacity text-white font-syne font-bold text-sm tracking-wide px-7 py-3.5 rounded-sm"
+          >
+            <Rocket className="w-4 h-4" />
+            Start a project
+          </a>
+          <span className="font-mono text-[11px] tracking-widest text-[#444]">
+            Available for freelance work
+          </span>
+        </motion.div>
+
       </div>
     </section>
   );

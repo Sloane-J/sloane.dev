@@ -1,5 +1,6 @@
 "use client";
 
+import { memo, useState } from "react";
 import { motion } from "framer-motion";
 import {
   Github,
@@ -7,184 +8,174 @@ import {
   Linkedin,
   Mail,
   ArrowUp,
-  ExternalLink,
-  Heart,
-  Code,
+  ArrowUpRight,
 } from "lucide-react";
 
-export default function Footer() {
-  const socialLinks = [
-    {
-      icon: Github,
-      href: "https://github.com/Sloane-J",
-      label: "GitHub",
-      color: "hover:text-gray-300",
-    },
-    {
-      icon: Twitter,
-      href: "https://twitter.com/sloanejnr",
-      label: "Twitter",
-      color: "hover:text-blue-400",
-    },
-    {
-      icon: Linkedin,
-      href: "https://www.linkedin.com/in/samueldorkey9a88901bb/",
-      label: "LinkedIn",
-      color: "hover:text-blue-500",
-    },
-    {
-      icon: Mail,
-      href: "mailto:samueldorkeyjr@gmail.com",
-      label: "Email",
-      color: "hover:text-orange-400",
-    },
-  ];
+const socialLinks = [
+  { icon: Github, href: "https://github.com/Sloane-J", label: "GitHub" },
+  { icon: Twitter, href: "https://twitter.com/sloanejnr", label: "Twitter" },
+  { icon: Linkedin, href: "https://www.linkedin.com/in/samueldorkey9a88901bb/", label: "LinkedIn" },
+  { icon: Mail, href: "mailto:samueldorkeyjr@gmail.com", label: "Email" },
+];
 
-  const quickLinks = [
-    { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "Projects", href: "#projects" },
-    { name: "Contact", href: "#contact" },
-  ];
+const quickLinks = [
+  { name: "About", href: "#about", num: "01" },
+  { name: "Services", href: "#services", num: "02" },
+  { name: "Projects", href: "#projects", num: "03" },
+  { name: "Contact", href: "#contact", num: "04" },
+];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
+function Footer() {
+  const [hoveredSocial, setHoveredSocial] = useState<number | null>(null);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer className="min-h-[50vh] flex flex-col relative overflow-hidden bg-[#080807]">
-      {/* Background Elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-orange-500 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-500 rounded-full blur-3xl"></div>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-1 flex items-center relative z-10">
-        <div className="container mx-auto px-6">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="max-w-7xl mx-auto"
-          >
-            {/* Main Footer Content */}
-            <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center mb-16">
-              {/* Left Section - Brand & Description */}
-              <motion.div
-                variants={itemVariants}
-                className="lg:col-span-5 space-y-6"
-              >
-                <div>
-                  <h3 className="text-4xl lg:text-5xl font-saint mb-4 text-white">
-                    Sloane
-                  </h3>
-                  <p className="text-[#D1D1C7] font-inter text-lg lg:text-xl opacity-90 leading-relaxed mb-6">
-                    Crafting digital experiences that inspire and engage. Let's
-                    build something amazing together.
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* Center Section - Quick Links */}
-              <motion.div variants={itemVariants} className="lg:col-span-3">
-                <h4 className="text-xl font-semibold mb-6 text-[#D1D1C7]">
-                  Quick Links
-                </h4>
-                <ul className="space-y-4">
-                  {quickLinks.map((link) => (
-                    <li key={link.name}>
-                      <a
-                        href={link.href}
-                        className="text-[#D1D1C7] text-lg opacity-75 hover:opacity-100 hover:text-orange-400 transition-all duration-300 flex items-center gap-2 group"
-                      >
-                        <span className="group-hover:translate-x-1 transition-transform duration-300 font-inter">
-                          {link.name}
-                        </span>
-                        <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-
-              {/* Right Section - Social Links & CTA */}
-              <motion.div
-                variants={itemVariants}
-                className="lg:col-span-4 space-y-8"
-              >
-                <div>
-                  <h4 className="text-xl font-semibold mb-6 text-[#D1D1C7]">
-                    Let's Connect
-                  </h4>
-                  <div className="grid grid-cols-2 gap-4">
-                    {socialLinks.map((social, index) => (
-                      <a
-                        key={index}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`flex items-center gap-3 p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-all duration-300 hover:bg-white/10 group  font-inter ${social.color}`}
-                      >
-                        <social.icon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-                        <span className="text-sm font-medium text-[#D1D1C7] group-hover:text-current transition-colors duration-300">
-                          {social.label}
-                        </span>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
+    <footer className="bg-[#080807] px-6 lg:px-10 pb-12 pt-4">
+      {/* Structural Brutalist Grid */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 border border-[#1a1a1a]">
+        
+        {/* Left Column — Brand Hero */}
+        <div className="lg:col-span-5 p-8 lg:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1a1a1a]">
+          <div className="flex flex-col gap-6">
+            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]">
+              007 / Brand
+            </span>
+            
+            {/* Word-by-word typography match */}
+            <div className="flex flex-wrap gap-x-3 gap-y-1">
+              {["Sloane", "Design", "Studio."].map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, y: 16, filter: "blur(4px)" }}
+                  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: i * 0.08, ease: [0.25, 0.4, 0.25, 1] }}
+                  className="font-syne font-extrabold text-3xl lg:text-4xl text-white leading-none"
+                >
+                  {i === 0 ? <span className="text-[#FF5733]">{word}</span> : word}
+                </motion.span>
+              ))}
             </div>
 
-            {/* Bottom Section - Copyright */}
-            <motion.div
-              variants={itemVariants}
-              className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 font-inter"
-            >
-              <p className="text-[#D1D1C7] opacity-60 text-sm">
-                © {new Date().getFullYear()} Samuel Dorkey Jr. All rights
-                reserved.
-              </p>
-              <div className="flex items-center gap-6 text-sm">
-                <a
-                  href="#"
-                  className="text-[#D1D1C7] opacity-60 hover:opacity-100 transition-opacity duration-300"
-                >
-                  Privacy Policy
-                </a>
-                <a
-                  href="#"
-                  className="text-[#D1D1C7] opacity-60 hover:opacity-100 transition-opacity duration-300"
-                >
-                  Terms of Service
-                </a>
-              </div>
-            </motion.div>
-          </motion.div>
+            <p className="font-mono text-xs text-[#555] leading-[1.85] max-w-sm mt-2">
+              Crafting high-performance digital architecture that integrates structural programming with minimal, balanced aesthetics.
+            </p>
+          </div>
+
+          <div className="mt-12 lg:mt-0">
+            <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-[#333] block mb-2">
+              Status
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF5733] animate-pulse" />
+              <span className="font-mono text-xs text-white">Available for select projects</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Center Column — Quick Links Grid Section */}
+        <div className="lg:col-span-3 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1a1a1a]">
+          <div className="p-6 border-b border-[#1a1a1a]">
+            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]">
+              Navigation
+            </span>
+          </div>
+          <div className="flex flex-col divide-y divide-[#1a1a1a] flex-1">
+            {quickLinks.map((link, i) => (
+              <a
+                key={i}
+                href={link.href}
+                className="group flex items-center justify-between p-5 hover:bg-[#0d0d0c] transition-colors duration-200"
+              >
+                <div className="flex items-center gap-4">
+                  <span className="font-mono text-[10px] text-[#333] group-hover:text-[#FF5733]/50 transition-colors">
+                    {link.num}
+                  </span>
+                  <span className="font-syne font-bold text-sm text-white group-hover:text-[#FF5733] transition-colors">
+                    {link.name}
+                  </span>
+                </div>
+                <ArrowUpRight className="w-3.5 h-3.5 text-[#222] group-hover:text-[#FF5733]/60 transition-colors transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 duration-200" />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Right Column — Social Links Matrix */}
+        <div className="lg:col-span-4 flex flex-col justify-between">
+          <div className="p-6 border-b border-[#1a1a1a] flex items-center justify-between">
+            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]">
+              Connect Ecosystem
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 divide-x divide-y divide-[#1a1a1a] border-b border-[#1a1a1a] lg:border-b-0 flex-1">
+            {socialLinks.map((social, i) => (
+              <motion.a
+                key={i}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onHoverStart={() => setHoveredSocial(i)}
+                onHoverEnd={() => setHoveredSocial(null)}
+                className="group relative flex flex-col justify-between p-6 hover:bg-[#0d0d0c] transition-colors overflow-hidden min-h-[110px]"
+              >
+                {/* Micro-shimmer on grid cell hover */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FF5733]/5 to-transparent -skew-x-12"
+                  initial={{ x: "-200%" }}
+                  animate={hoveredSocial === i ? { x: "200%" } : { x: "-200%" }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                />
+
+                <div className="flex items-center justify-between w-full">
+                  <div className="w-8 h-8 flex items-center justify-center border border-[#1a1a1a] group-hover:border-[#FF5733]/30 bg-[#080807] transition-colors rounded-sm">
+                    <social.icon className="w-3.5 h-3.5 text-[#444] group-hover:text-[#FF5733] transition-colors" />
+                  </div>
+                  <ArrowUpRight className="w-3 h-3 text-[#222] opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+                
+                <span className="font-mono text-xs text-[#555] group-hover:text-white transition-colors block mt-4">
+                  {social.label}
+                </span>
+              </motion.a>
+            ))}
+          </div>
+
+          {/* Core Action Cell */}
+          <button
+            onClick={scrollToTop}
+            className="group w-full p-5 bg-[#0d0d0c] hover:bg-[#121211] border-t border-[#1a1a1a] flex items-center justify-between transition-colors font-mono text-[10px] tracking-[0.2em] uppercase text-[#555] hover:text-[#FF5733]"
+          >
+            <span>Back to architecture apex</span>
+            <div className="w-7 h-7 flex items-center justify-center border border-[#1a1a1a] group-hover:border-[#FF5733]/30 rounded-sm transition-colors">
+              <ArrowUp className="w-3.5 h-3.5 text-[#444] group-hover:text-[#FF5733] transition-colors" />
+            </div>
+          </button>
+        </div>
+
+      </div>
+
+      {/* Ground-level Meta Information */}
+      <div className="max-w-6xl mx-auto mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 px-2">
+        <p className="font-mono text-[10px] tracking-wide text-[#333]">
+          © {new Date().getFullYear()} Samuel Dorkey Jr. Systems platform execution.
+        </p>
+        <div className="flex items-center gap-6 font-mono text-[10px]">
+          <a href="#" className="text-[#333] hover:text-[#FF5733] transition-colors tracking-wide">
+            Privacy Context
+          </a>
+          <span className="text-[#1a1a1a] select-none">/</span>
+          <a href="#" className="text-[#333] hover:text-[#FF5733] transition-colors tracking-wide">
+            Terms Protocol
+          </a>
         </div>
       </div>
     </footer>
   );
 }
+
+export default memo(Footer);

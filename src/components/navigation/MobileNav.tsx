@@ -1,62 +1,117 @@
 "use client"
 
+import { memo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X } from "lucide-react"
+import { X, ArrowUpRight } from "lucide-react"
 
 interface MobileNavProps {
   isOpen: boolean
   onClose: () => void
 }
 
-export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
-  const menuItems = ["Home", "About", "Services", "Testimonials", "Contact"]
+const menuItems = [
+  { name: "Home", num: "01" },
+  { name: "About", num: "02" },
+  { name: "Services", num: "03" },
+  { name: "Testimonials", num: "04" },
+  { name: "Contact", num: "05" },
+]
 
+function MobileNav({ isOpen, onClose }: MobileNavProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 lg:hidden"
-          onClick={onClose}
-        >
+        <>
+          {/* Overlay - clean dark screen space mask */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35, ease: "linear" }}
+            className="fixed inset-0 bg-black/80 backdrop-blur-xs z-50 lg:hidden"
+            onClick={onClose}
+          />
+
+          {/* Drawer Architecture Panel */}
           <motion.div
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 20 }}
-            className="fixed right-0 top-0 bottom-0 w-[250px] bg-[#080807] p-6"
+            transition={{ type: "spring", damping: 26, stiffness: 220 }}
+            className="fixed right-0 top-0 bottom-0 w-[300px] sm:w-[340px] bg-[#080807] border-l border-[#1a1a1a] z-55 lg:hidden flex flex-col justify-between overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <button onClick={onClose} className="absolute top-5 right-5 text-gray-400 hover:text-white">
-              <X className="w-6 h-6" />
-            </button>
+            {/* Upper Frame Anchor Block */}
+            <div>
+              <div className="flex items-center justify-between p-6 border-b border-[#1a1a1a] bg-[#0d0d0c]">
+                <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-[#444]">
+                  Menu Architecture
+                </span>
+                <button
+                  onClick={onClose}
+                  className="group w-8 h-8 flex items-center justify-center border border-[#1a1a1a] hover:border-[#FF5733]/40 bg-[#080807] transition-colors rounded-sm"
+                  aria-label="Close navigation menu"
+                >
+                  <X className="w-3.5 h-3.5 text-[#555] group-hover:text-[#FF5733] transition-colors" />
+                </button>
+              </div>
 
-            <nav className="mt-8">
-              <ul className="space-y-4">
-                {menuItems.map((item) => (
-                  <motion.li
-                    key={item}
-                    initial={{ x: -20, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.3 }}
+              {/* Navigation Stack Matrices */}
+              <nav className="flex flex-col divide-y divide-[#1a1a1a] border-b border-[#1a1a1a]">
+                {menuItems.map((item, i) => (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, x: 16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.35, delay: i * 0.05, ease: [0.25, 0.4, 0.25, 1] }}
                   >
                     <a
-                      href={`#${item.toLowerCase()}`}
-                      className="text-lg text-gray-300 hover:text-white transition-colors block py-2"
+                      href={`#${item.name.toLowerCase()}`}
+                      className="group flex items-center justify-between p-6 hover:bg-[#0d0d0c] transition-colors duration-150"
                       onClick={onClose}
                     >
-                      {item}
+                      <div className="flex items-center gap-5">
+                        <span className="font-mono text-[10px] text-[#333] group-hover:text-[#FF5733]/50 transition-colors">
+                          {item.num}
+                        </span>
+                        <span className="font-syne font-extrabold text-lg text-white group-hover:text-[#FF5733] transition-colors">
+                          {item.name}
+                        </span>
+                      </div>
+                      <ArrowUpRight className="w-4 h-4 text-[#1a1a1a] group-hover:text-[#FF5733]/40 transition-colors transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 duration-200" />
                     </a>
-                  </motion.li>
+                  </motion.div>
                 ))}
-              </ul>
-            </nav>
+              </nav>
+            </div>
+
+            {/* Bottom Meta Interface Grid */}
+            <div className="p-6 bg-[#0d0d0c] border-t border-[#1a1a1a] flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[8px] tracking-[0.2em] uppercase text-[#333]">
+                  Region Protocol
+                </span>
+                <span className="font-mono text-[10px] text-[#555]">
+                  GMT+0 · Ho, GH
+                </span>
+              </div>
+              <div className="h-[1px] bg-[#1a1a1a] w-full" />
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[8px] tracking-[0.2em] uppercase text-[#333]">
+                  System Status
+                </span>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-[#FF5733] animate-pulse" />
+                  <span className="font-mono text-[10px] text-white">Active Operational</span>
+                </div>
+              </div>
+            </div>
+
           </motion.div>
-        </motion.div>
+        </>
       )}
     </AnimatePresence>
   )
 }
 
+export default memo(MobileNav)

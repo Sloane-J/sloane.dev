@@ -1,195 +1,153 @@
 "use client";
 
-import React from "react";
+import { memo } from "react";
 import { motion } from "framer-motion";
-import { Code2, Palette, Globe2, ArrowDown, ExternalLink } from "lucide-react";
 
-const skills = [
-  {
-    title: "Web Development",
-    icon: Code2,
-    description:
-      "Building responsive and performant web applications using modern technologies.",
-    technologies: ["React", "Next.js", "TypeScript", "Node.js"],
-    iconColor: "text-blue-400",
-    bgColor: "bg-blue-500/10",
-    borderColor: "border-blue-500/20",
-  },
-  {
-    title: "UI/UX Design",
-    icon: Palette,
-    description:
-      "Creating intuitive and beautiful user interfaces with attention to detail.",
-    technologies: ["Figma", "Adobe XD", "Tailwind CSS", "Framer Motion"],
-    iconColor: "text-purple-400",
-    bgColor: "bg-purple-500/10",
-    borderColor: "border-purple-500/20",
-  },
-  {
-    title: "Full Stack",
-    icon: Globe2,
-    description:
-      "End-to-end development from database design to frontend implementation.",
-    technologies: ["PostgreSQL", "MongoDB", "Express", "REST APIs"],
-    iconColor: "text-green-400",
-    bgColor: "bg-green-500/10",
-    borderColor: "border-green-500/20",
-  },
+const fadeUp = (delay = 0) => ({
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, delay, ease: "easeOut" } },
+});
+
+const fadeIn = (delay = 0) => ({
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.5, delay } },
+});
+
+const meta = [
+  { label: "Focus",      value: "Full stack & Mobile" },
+  { label: "Status",     value: <><span className="text-[#FF5733]">Open</span> to work</> },
 ];
 
-export default function About() {
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
-  const cardContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.6,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.7, ease: "easeOut" },
-    },
-  };
-
+const About = () => {
   return (
-    <section id="about" className="min-h-screen bg-[#080807] flex flex-col">
-      {/* Header Section */}
-      <div className="flex-shrink-0 pt-16 pb-8">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center"
-          >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-[#D1D1C7]">
-              About
-            </h2>
-            <p className="text-[#D1D1C7] text-lg md:text-xl max-w-2xl mx-auto opacity-80">
-              Passionate developer crafting digital experiences
-            </p>
-          </motion.div>
-        </div>
+    <section id="about" className="bg-[#080807] px-6 lg:px-10 py-20">
+
+      {/* Top bar */}
+      <div className="flex items-center justify-between pb-6 border-b border-[#1a1a1a] mb-12 max-w-6xl mx-auto">
+        <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]">
+          003 / About me
+        </span>
+        <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]">
+          Samuel Dorkey
+        </span>
       </div>
 
-      {/* Main Content Section */}
-      <div className="flex-1 flex items-center">
-        <div className="container mx-auto px-6 w-full">
-          {/* Profile Section */}
-          <div className="max-w-7xl mx-auto mb-20">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-              {/* Left - Profile Image with Enhanced Styling */}
-              <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="relative group"
-              >
-                <div className="absolute -inset-4 bg-gradient-to-r from-orange-500/20 to-blue-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div className="relative overflow-hidden rounded-2xl border border-gray-700/50 hover:border-gray-600/50 transition-all duration-300">
-                  <img
-                    src="/images/Profile-Pic.jpg"
-                    alt="Samuel Dorkey Jr - Developer Profile"
-                    className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
-                    onError={(e) => {
-                      e.currentTarget.src =
-                        "https://placehold.co/600x600/2a2a2a/white?text=Samuel+Dorkey+Jr";
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-              </motion.div>
+      {/* Main grid */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 border border-[#1a1a1a]">
 
-              {/* Right - Enhanced Text Content */}
+        {/* Left — photo */}
+        <motion.div
+          variants={fadeIn(0.1)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="relative overflow-hidden min-h-[400px] lg:min-h-[560px]"
+        >
+          <img
+            src="/images/Profile-Pic.jpg"
+            alt="Samuel Dorkey Jr — Software Developer"
+            className="w-full h-full object-cover object-top absolute inset-0"
+            onError={(e) => {
+              e.currentTarget.src =
+                "https://placehold.co/600x800/111111/333333?text=Samuel";
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#080807] via-transparent to-transparent" />
+          <span className="absolute bottom-5 left-5 font-mono text-[10px] tracking-[0.15em] uppercase text-[#555]">
+            Samuel D. Jr — Ho, Ghana
+          </span>
+        </motion.div>
+
+        {/* Right — content */}
+        <div className="flex flex-col border-t lg:border-t-0 lg:border-l border-[#1a1a1a]">
+
+          {/* Bio block */}
+          <div className="flex flex-col gap-5 p-8 lg:p-10 border-b border-[#1a1a1a]">
+            <motion.span
+              variants={fadeUp(0.15)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]"
+            >
+              003 / About
+            </motion.span>
+
+            <motion.h2
+              variants={fadeUp(0.2)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="font-syne font-extrabold text-3xl lg:text-4xl text-white leading-none"
+            >
+              Software
+              <span className="text-[#FF5733]"> Developer</span>
+            </motion.h2>
+
+            <motion.p
+              variants={fadeUp(0.25)}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="font-mono text-xs text-[#666] leading-[1.85]"
+            >
+              I build full stack web apps, mobile applications, and
+              production-ready digital products. I care about clean
+              architecture, fast performance, and shipping things that
+              actually work.
+            </motion.p>
+          </div>
+
+          {/* Meta grid */}
+          <div className="grid grid-cols-2 flex-1">
+            {meta.map((item, i) => (
               <motion.div
-                variants={containerVariants}
+                key={i}
+                variants={fadeUp(0.28 + i * 0.05)}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="space-y-8"
+                className={`flex flex-col gap-1.5 p-6 lg:p-8
+                  ${i % 2 === 0 ? "border-r border-[#1a1a1a]" : ""}
+                  ${i < 2 ? "border-b border-[#1a1a1a]" : ""}
+                `}
               >
-                <motion.div variants={itemVariants}>
-                  <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
-                    Hi, I'm{" "}
-                    <span className="font-playfair">Samuel Dorkey Jr</span>
-                  </h3>
-                </motion.div>
-
-                <motion.p
-                  variants={itemVariants}
-                  className="text-[#D1D1C7] text-lg lg:text-xl leading-relaxed opacity-90 font-inter"
-                >
-                  Driven by a passion for design and development, I transform
-                  ideas into live projects, ensuring a seamless journey that
-                  delivers a powerful, positive impact on the digital world and
-                  your business.
-                </motion.p>
-
-                <motion.p
-                  variants={itemVariants}
-                  className="text-[#D1D1C7] text-base lg:text-lg leading-relaxed opacity-80 font-inter"
-                >
-                  My core mission is crafting exceptional web experiences that
-                  resonate with users, thanks to a keen eye for detail and a
-                  commitment to user-centric principles. Beyond development, I
-                  share insights through my blog and unwind with mobile gaming
-                  on YouTube.
-                </motion.p>
-
-                <motion.div
-                  variants={itemVariants}
-                  className="flex flex-col sm:flex-row gap-4 pt-4"
-                >
-                  <a
-                    href="#contact"
-                    className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-orange-600 to-orange-400 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-orange-400 hover:to-orange-600 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25"
-                  >
-                    Ready to get started?
-                    <ArrowDown className="w-5 h-5" />
-                  </a>
-                  {/*  <a
-                    href="/resume.pdf"
-                    className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-white/10 backdrop-blur-sm rounded-full font-semibold text-lg text-white hover:bg-white/20 transition-all duration-300 border border-white/20 hover:border-white/30"
-                  >
-                    View Resume
-                    <ExternalLink className="w-5 h-5" />
-                  </a>*/}
-                </motion.div>
+                <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-[#333]">
+                  {item.label}
+                </span>
+                <span className="font-mono text-xs text-[#777]">
+                  {item.value}
+                </span>
               </motion.div>
-            </div>
+            ))}
           </div>
+
+          {/* CTA row */}
+          <motion.div
+            variants={fadeUp(0.45)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="flex gap-3 p-8 lg:p-10 border-t border-[#1a1a1a]"
+          >
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 bg-[#FF5733] hover:opacity-85 transition-opacity text-white font-syne font-bold text-xs tracking-wide px-6 py-3.5 rounded-sm"
+            >
+              Start a project →
+            </a>
+            
+            <a
+              href="#projects"
+              className="inline-flex items-center gap-2 border border-[#222] hover:border-[#444] hover:text-white transition-colors text-[#555] font-mono text-[11px] tracking-[0.08em] px-6 py-3.5 rounded-sm"
+            >
+              See my work ↓
+            </a>
+          </motion.div>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default memo(About);
