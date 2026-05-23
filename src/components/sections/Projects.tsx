@@ -324,7 +324,7 @@ const ProjectCard = memo(
                   href={project.githubUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-2 border border-[#222] hover:border-[#444] hover:text-white transition-colors text-[#555] font-mono text-[11px] tracking-[0.08em] px-5 py-3 rounded-sm"
+                  className="inline-flex items-center gap-2 border border-[#222] hover:border-[#444] hover:text-white transition-colors text-[#555] font-mono text-[12px] tracking-[0.08em] px-5 py-3 rounded-sm"
                 >
                   <Github className="w-3.5 h-3.5" />
                   Code
@@ -377,11 +377,15 @@ const Projects = () => {
 
     const handleScroll = () => {
       const { top, height, vh } = bounds.current;
+
       const scrollY = window.scrollY;
-      const startOffset = top - vh;
-      const distance = scrollY - startOffset;
-      const totalScrollable = height + vh;
-      setProgress(Math.max(0, Math.min(1, distance / totalScrollable)));
+
+      const start = top - vh;
+      const end = top + height;
+
+      const raw = (scrollY - start) / (end - start);
+
+      setProgress(Math.min(1, Math.max(0, raw)));
     };
 
     const throttledScroll = () => requestAnimationFrame(handleScroll);

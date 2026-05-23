@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect, memo } from "react";
-import { createPortal } from "react-dom";
+import { useState, useEffect, memo, useRef } from "react";
 import { motion, useScroll, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 
@@ -18,14 +17,10 @@ function CornerMenu() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
-  const [mounted, setMounted] = useState(false);
-
   const { scrollY } = useScroll();
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
+  // Monitor viewport travel distance
   useEffect(() => {
     const unsubscribe = scrollY.on("change", (latest) => {
       setIsScrolled(latest > 100);
@@ -33,12 +28,22 @@ function CornerMenu() {
     return () => unsubscribe();
   }, [scrollY]);
 
-  const handleNavClick = (href: string, name: string) => {
-    setActiveSection(name.toLowerCase());
-    setIsMenuOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+  // Lock body viewport layout shifts when modal initializes
+  useEffect(() => {
+  if (isMenuOpen) {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
+  }
+  return () => {
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
   };
+}, [isMenuOpen]);
 
+  // Trap keyboard escape listener
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") setIsMenuOpen(false);
@@ -47,116 +52,170 @@ function CornerMenu() {
     return () => document.removeEventListener("keydown", handleEscape);
   }, []);
 
-  const overlayRoot = typeof document !== "undefined" ? document.body : null;
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, name: string) => {
+    e.preventDefault();
+    setActiveSection(name.toLowerCase());
+    setIsMenuOpen(false);
+    
+    const targetElement = document.getElementById(href.replace("#", ""));
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <>
-      {/* Trigger Button (stays in normal DOM) */}
+      {/* Structural Trigger Button Frame */}
       <AnimatePresence>
         {isScrolled && (
           <motion.div
-            className="fixed top-6 right-6 md:top-8 md:right-8 z-50"
+            className="fixed top-6 right-6 md:top-8 md:right-8 z-60"
             initial={{ opacity: 0, scale: 0.9, y: -10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: -10 }}
+            transition={{ duration: 0.25, ease: [0.25, 0.4, 0.25, 1] }}
           >
             <motion.button
-              aria-label="Toggle navigation"
+              aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={isMenuOpen}
+              aria-controls="navigation-matrix-panel"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               whileTap={{ scale: 0.96 }}
-              className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border rounded-sm bg-[#080807] border-[#1a1a1a] text-white"
+              className={`group w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border rounded-sm transition-colors duration-200 bg-[#080807] ${
+                isMenuOpen 
+                  ? "border-[#FF5733] text-[#FF5733]" 
+                  : "border-[#2a2a2a] text-zinc-100 hover:border-[#FF5733]"
+              }`}
             >
-              {isMenuOpen ? (
-                <X className="w-4 h-4" />
-              ) : (
-                <Menu className="w-4 h-4" />
-              )}
+              <AnimatePresence mode="wait">
+                {isMenuOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ opacity: 0, rotate: -45 }}
+                    animate={{ opacity: 1, rotate: 0 }}
+                    exit={{ opacity: 0, rotate: 45 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <X className="w-5 h-5" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{ opacity: 0, rotate: 45 }}
+                    animate={{ opacity: 1, rotate: 0 }}
+                    exit={{ opacity: 0, rotate: -45 }}
+                    transition={{ duration: 0.15 }}
+                  >
+                    <Menu className="w-5 h-5" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.button>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* PORTAL LAYER (fix for all overlay bugs) */}
-      {mounted &&
-        isMenuOpen &&
-        overlayRoot &&
-        createPortal(
-          <AnimatePresence>
-            {/* Backdrop Layer */}
+      {/* Full Screen Menu Layout System */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <>
+            {/* Dark Mask Plane */}
             <motion.div
-              className="fixed inset-0 bg-black/80 backdrop-blur-xs"
+              className="fixed inset-0 bg-black/85 backdrop-blur-xs z-40"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
               onClick={() => setIsMenuOpen(false)}
-              style={{ zIndex: 9990 }}
             />
 
-            {/* Drawer Layer */}
+            {/* Menu Panel Architecture */}
             <motion.div
-              className="fixed inset-y-0 right-0 w-full sm:w-[400px] bg-[#080807] border-l border-[#1a1a1a] flex flex-col justify-between overflow-hidden"
+              id="navigation-matrix-panel"
+              ref={menuRef}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Navigation Matrix"
+              className="fixed inset-y-0 right-0 w-full sm:w-[420px] bg-[#080807] border-l border-[#2a2a2a] z-50 flex flex-col justify-between overflow-hidden"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 28, stiffness: 240 }}
-              style={{ zIndex: 9991 }}
-              onClick={(e) => e.stopPropagation()}
+              transition={{ type: "spring", damping: 30, stiffness: 260 }}
             >
-              {/* Header */}
-              <div className="flex items-center justify-between p-6 bg-[#0d0d0c] border-b border-[#1a1a1a]">
-                <span className="font-mono text-[12px] tracking-[0.25em] uppercase text-zinc-400">
+              {/* Context Block Header */}
+              <div className="flex items-center justify-between p-6 bg-[#0d0d0c] border-b border-[#2a2a2a]">
+                <span className="font-mono text-xs tracking-[0.2em] uppercase text-zinc-100 font-semibold">
                   Index / Navigation Matrix
                 </span>
-                <span className="font-mono text-[12px] text-zinc-400">
+                <span className="font-mono text-xs text-zinc-400 select-none tracking-wider font-medium">
                   [ESC] CLOSE
                 </span>
               </div>
 
-              {/* Nav */}
-              <nav className="flex flex-col divide-y divide-[#1a1a1a] border-b border-[#1a1a1a]">
+              {/* Grid Link Stack */}
+              <nav className="flex flex-col divide-y divide-[#2a2a2a] border-b border-[#2a2a2a] bg-[#080807]">
                 {navItems.map((item, index) => {
                   const isActive = activeSection === item.name.toLowerCase();
-
                   return (
-                    <motion.button
+                    <motion.a
                       key={item.name}
-                      onClick={() => handleNavClick(item.href, item.name)}
-                      className="flex items-center justify-between p-6 w-full text-left hover:bg-[#0d0d0c]"
+                      href={item.href}
+                      onClick={(e) => handleNavClick(e, item.href, item.name)}
+                      className="group flex items-center justify-between p-6 w-full bg-transparent hover:bg-[#0d0d0c] transition-colors duration-150 text-decoration-none"
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.04 }}
+                      transition={{ duration: 0.4, delay: index * 0.04, ease: [0.25, 0.4, 0.25, 1] }}
                     >
                       <div className="flex items-center gap-5">
-                        <span
-                          className={`font-mono text-[12px] ${
-                            isActive ? "text-[#FF5733]" : "text-[#2a2a29]"
-                          }`}
-                        >
+                        <span className={`font-mono text-xs font-bold tracking-wider transition-colors duration-200 ${
+                          isActive ? "text-[#FF5733]" : "text-zinc-400 group-hover:text-[#FF5733]"
+                        }`}>
                           {item.num}
                         </span>
-                        <span
-                          className={`text-xl font-bold ${
-                            isActive ? "text-[#FF5733]" : "text-white"
-                          }`}
-                        >
+                        <span className={`font-syne font-extrabold text-2xl transition-colors duration-200 ${
+                          isActive ? "text-[#FF5733]" : "text-zinc-100 group-hover:text-[#FF5733]"
+                        }`}>
                           {item.name}
                         </span>
                       </div>
-
-                      <ArrowUpRight className="w-4 h-4 text-zinc-400" />
-                    </motion.button>
+                      
+                      <div className="flex items-center gap-3">
+                        {isActive && (
+                          <span className="font-mono text-[10px] tracking-widest text-[#FF5733] bg-[#FF5733]/10 border border-[#FF5733]/30 px-2 py-1 rounded-xs font-bold uppercase">
+                            Active
+                          </span>
+                        )}
+                        <ArrowUpRight className={`w-5 h-5 transition-all duration-200 ${
+                          isActive 
+                            ? "text-[#FF5733]" 
+                            : "text-zinc-500 group-hover:text-[#FF5733] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                        }`} />
+                      </div>
+                    </motion.a>
                   );
                 })}
               </nav>
 
-              {/* Footer */}
-              <div className="p-6 bg-[#0d0d0c] text-[12px] font-mono text-zinc-400">
-                SYSTEM ONLINE
+              {/* Ground Architecture Meta Interface */}
+              <div className="p-6 bg-[#0d0d0c] flex flex-col gap-4 font-mono text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="tracking-[0.15em] text-zinc-400 uppercase font-semibold">Identity Link</span>
+                  <span className="text-zinc-100 font-medium">Samuel Dorkey Jr.</span>
+                </div>
+                <div className="h-[1px] bg-[#2a2a2a]" />
+                <div className="flex items-center justify-between">
+                  <span className="tracking-[0.15em] text-zinc-400 uppercase font-semibold">System Execution</span>
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF5733] animate-pulse" />
+                    <span className="text-zinc-100 tracking-wider font-bold">ONLINE FRAME</span>
+                  </div>
+                </div>
               </div>
+
             </motion.div>
-          </AnimatePresence>,
-          overlayRoot,
+          </>
         )}
+      </AnimatePresence>
     </>
   );
 }

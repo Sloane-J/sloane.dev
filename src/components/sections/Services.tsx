@@ -58,13 +58,9 @@ export default function Services() {
           transition={{ duration: 0.4 }}
           className="mb-16"
         >
-          <p className="text-[11px] uppercase tracking-[0.2em] text-[#FF5733] opacity-80 mb-4 font-mono">
+          <p className="text-[12px] uppercase tracking-[0.2em] text-[#FF5733] opacity-80 mb-4 font-mono">
             What I do
           </p>
-          <h2 className="font-syne text-5xl md:text-6xl lg:text-7xl font-extrabold leading-none text-white">
-            Services &<br />
-            <span className="text-[#FF5733]">expertise</span>
-          </h2>
         </motion.div>
 
         {/* Grid Container */}
@@ -125,7 +121,7 @@ export default function Services() {
             <Rocket className="w-4 h-4" />
             Start a project
           </a>
-          <span className="font-mono text-[11px] tracking-widest text-zinc-400">
+          <span className="font-mono text-[12px] tracking-widest text-zinc-400">
             Available for freelance work
           </span>
         </motion.div>

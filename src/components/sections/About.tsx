@@ -147,7 +147,7 @@ const About = () => {
 
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 border border-[#222] hover:border-[#444] hover:text-white transition-colors text-[#555] font-mono text-[11px] tracking-[0.08em] px-6 py-3.5 rounded-sm"
+              className="inline-flex items-center gap-2 border border-[#222] hover:border-[#444] hover:text-white transition-colors text-[#555] font-mono text-[12px] tracking-[0.08em] px-6 py-3.5 rounded-sm"
             >
               See my work ↓
             </a>

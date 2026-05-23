@@ -152,7 +152,7 @@ const Testimonials = () => {
                   <span className="font-syne font-bold text-base text-white">
                     {current.name}
                   </span>
-                  <span className="font-mono text-[11px] text-[#555] tracking-wide">
+                  <span className="font-mono text-[12px] text-[#555] tracking-wide">
                     {current.role} — {current.company}
                   </span>
                 </div>

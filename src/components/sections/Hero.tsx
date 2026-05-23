@@ -8,11 +8,18 @@ export default function Hero() {
 
   const fadeUp = useMemo(
     () => ({
-      hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+      hidden: {
+        opacity: 0,
+        y: 20,
+      },
       visible: (i: number) => ({
         opacity: 1,
         y: 0,
-        transition: { duration: 0.4, delay: i * 0.08, ease: "easeOut" },
+        transition: {
+          duration: shouldReduceMotion ? 0 : 0.4,
+          delay: shouldReduceMotion ? 0 : i * 0.08,
+          ease: "easeOut",
+        },
       }),
     }),
     [shouldReduceMotion],
@@ -44,10 +51,11 @@ export default function Hero() {
           <motion.span
             custom={0}
             variants={fadeUp}
-            initial="hidden"
+            initial={false}
             animate="visible"
-            className="font-mono text-[12px] tracking-[0.2em] uppercase text-neutral-200"
+            className="flex items-center gap-3 font-mono text-[12px] tracking-[0.15em] uppercase text-zinc-400"
           >
+            <div className="w-10 h-px bg-[#333]" />
             001 / Introduction
           </motion.span>
 
@@ -56,7 +64,7 @@ export default function Hero() {
             id="hero-heading"
             custom={1}
             variants={fadeUp}
-            initial="hidden"
+            initial={false}
             animate="visible"
             className="font-syne font-extrabold text-[clamp(2.2rem,6vw,5.5rem)] leading-none text-white tracking-tight"
           >
@@ -66,15 +74,15 @@ export default function Hero() {
           <motion.div
             custom={2}
             variants={fadeUp}
-            initial="hidden"
+            initial={false}
             animate="visible"
             className="flex items-center gap-4 w-full max-w-2xl"
           >
-            <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-[#555] whitespace-nowrap">
+            <span className="font-mono text-[12px] tracking-[0.18em] uppercase text-[#333] whitespace-nowrap">
               Software Developer
             </span>
             <div className="flex-1 h-px bg-[#1e1e1e]" />
-            <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-[#555] whitespace-nowrap">
+            <span className="font-mono text-[12px] tracking-[0.18em] uppercase text-[#333] whitespace-nowrap">
               Ghana
             </span>
           </motion.div>
@@ -83,7 +91,7 @@ export default function Hero() {
           <motion.p
             custom={3}
             variants={fadeUp}
-            initial="hidden"
+            initial={false}
             animate="visible"
             className="font-mono text-sm text-zinc-400 leading-[1.8] max-w-xl"
           >
@@ -95,20 +103,20 @@ export default function Hero() {
           <motion.div
             custom={4}
             variants={fadeUp}
-            initial="hidden"
+            initial={false}
             animate="visible"
             className="flex flex-wrap gap-3 pt-4"
           >
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-[#FF5733] hover:opacity-85 transition-opacity text-white font-syne font-bold text-sm tracking-wide px-6 py-3.5 rounded-sm"
+              className="inline-flex items-center gap-2 bg-[#FF5733] hover:opacity-85 transition-opacity text-white font-mono font-bold text-sm tracking-wide px-6 py-3.5 rounded-sm"
             >
               Start a project →
             </a>
 
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 border border-[#222] hover:border-[#444] hover:text-white transition-colors text-[#555] font-mono text-[11px] tracking-[0.1em] px-6 py-3.5 rounded-sm"
+              className="inline-flex items-center gap-2 border border-[#222] hover:border-[#444] hover:text-white transition-colors text-[#555] font-mono text-[12px] tracking-[0.1em] px-6 py-3.5 rounded-sm"
             >
               Explore work ↓
             </a>
@@ -118,17 +126,17 @@ export default function Hero() {
           <motion.div
             custom={5}
             variants={fadeUp}
-            initial="hidden"
+            initial={false}
             animate="visible"
             className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-12 mt-12 border-t border-[#1a1a1a]"
           >
             {[
               { label: "Based in", value: "Accra, Ghana" },
-              { label: "Specialisation", value: "React · Astro · Supabase" },
+              { label: "Specialisation", value: "Laravel · React · Supabase . AstroJS" },
               { label: "Status", value: "Open to freelance & contracts" },
             ].map((item, i) => (
               <div key={i} className="flex flex-col gap-1.5">
-                <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-neutral-200">
+                <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-4000">
                   {item.label}
                 </span>
                 <span className="font-mono text-sm text-[#777]">
@@ -142,7 +150,7 @@ export default function Hero() {
 
       {/* Bottom bar */}
       <div className="flex items-center justify-between py-5 border-t border-[#1a1a1a]">
-        <div className="flex items-center gap-3 font-mono text-[12px] tracking-[0.15em] uppercase text-neutral-200">
+        <div className="flex items-center gap-3 font-mono text-[12px] tracking-[0.15em] uppercase text-zinc-400">
           <div className="w-10 h-px bg-[#333]" />
           Scroll to explore
         </div>
@@ -150,7 +158,7 @@ export default function Hero() {
           {["React", "Astro", "TypeScript", "Supabase"].map((tag) => (
             <span
               key={tag}
-              className="font-mono text-[12px] tracking-wide text-neutral-200 border border-[#1e1e1e] px-2.5 py-1 rounded-sm"
+              className="font-mono text-[12px] tracking-wide text-zinc-400 border border-[#1e1e1e] px-2.5 py-1 rounded-sm"
             >
               {tag}
             </span>

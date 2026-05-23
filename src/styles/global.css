@@ -51,6 +51,14 @@
     position: relative;
   }
 
+  html {
+  scrollbar-gutter: stable;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
   @keyframes aurora {
     0% {
       background-position: 0% 50%;
