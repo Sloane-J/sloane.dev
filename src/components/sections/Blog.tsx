@@ -60,7 +60,10 @@ const blogPosts: BlogPost[] = [
   },
 ];
 
-const categories = ["All", ...Array.from(new Set(blogPosts.map((p) => p.category)))];
+const categories = [
+  "All",
+  ...Array.from(new Set(blogPosts.map((p) => p.category))),
+];
 
 const formatDate = (dateStr: string) =>
   new Date(dateStr).toLocaleDateString("en-GB", {
@@ -80,19 +83,17 @@ function Blog() {
 
   return (
     <section id="blog" className="bg-[#080807] px-6 lg:px-10 py-20">
-
       {/* Top bar */}
       <div className="max-w-6xl mx-auto flex items-center justify-between pb-6 border-b border-[#1a1a1a] mb-12">
-        <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]">
+        <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400">
           005 / Writing & projects
         </span>
-        <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]">
+        <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400">
           {filtered.length} posts
         </span>
       </div>
 
       <div className="max-w-6xl mx-auto">
-
         {/* Header + filter row */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
           <motion.h2
@@ -118,10 +119,10 @@ function Blog() {
               <button
                 key={cat}
                 onClick={() => setSelected(cat)}
-                className={`font-mono text-[10px] tracking-[0.1em] uppercase px-3 py-2 border rounded-sm transition-colors duration-200 ${
+                className={`font-mono text-[12px] tracking-[0.1em] uppercase px-3 py-2 border rounded-sm transition-colors duration-200 ${
                   selected === cat
                     ? "border-[#FF5733] text-[#FF5733]"
-                    : "border-[#222] text-[#444] hover:border-[#444] hover:text-[#777]"
+                    : "border-[#222] text-zinc-400 hover:border-[#444] hover:text-[#777]"
                 }`}
               >
                 {cat}
@@ -150,7 +151,6 @@ function Blog() {
                   border-b border-[#1a1a1a]
                   ${i % 3 !== 2 ? "lg:border-r lg:border-[#1a1a1a]" : ""}
                   ${i % 2 !== 1 ? "sm:border-r sm:border-[#1a1a1a] lg:border-r-0" : ""}
-                  ${i % 3 !== 2 ? "lg:border-r" : ""}
                 `}
               >
                 {/* Image */}
@@ -168,7 +168,7 @@ function Blog() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#080807]/60 to-transparent" />
 
                   {/* Category tag */}
-                  <span className="absolute top-3 left-3 font-mono text-[9px] tracking-[0.15em] uppercase text-[#555] border border-[#222] bg-[#080807]/80 px-2 py-1 rounded-sm">
+                  <span className="absolute top-3 left-3 font-mono text-[12px] tracking-[0.15em] uppercase text-[#555] border border-[#222] bg-[#080807]/80 px-2 py-1 rounded-sm">
                     {post.category}
                   </span>
                 </div>
@@ -176,7 +176,7 @@ function Blog() {
                 {/* Content */}
                 <div className="flex flex-col gap-4 p-6 flex-1">
                   {/* Meta */}
-                  <div className="flex items-center gap-3 font-mono text-[9px] tracking-[0.12em] uppercase text-[#333]">
+                  <div className="flex items-center gap-3 font-mono text-[12px] tracking-[0.12em] uppercase text-zinc-400">
                     <span>{formatDate(post.date)}</span>
                     <span className="w-px h-3 bg-[#222]" />
                     <span>{post.readTime} read</span>
@@ -188,7 +188,7 @@ function Blog() {
                   </h3>
 
                   {/* Excerpt */}
-                  <p className="font-mono text-xs text-[#555] leading-[1.8] line-clamp-3">
+                  <p className="font-mono text-sm text-[#555] leading-[1.8] line-clamp-3">
                     {post.excerpt}
                   </p>
 
@@ -197,7 +197,7 @@ function Blog() {
                     {post.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="font-mono text-[9px] tracking-wide text-[#444] border border-[#1e1e1e] px-2 py-0.5 rounded-sm"
+                        className="font-mono text-[12px] tracking-wide text-zinc-400 border border-[#1e1e1e] px-2 py-0.5 rounded-sm"
                       >
                         {tag}
                       </span>
@@ -210,7 +210,7 @@ function Blog() {
                   href={post.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center justify-between px-6 py-4 border-t border-[#1a1a1a] font-mono text-[10px] tracking-[0.1em] uppercase text-[#444] hover:text-[#FF5733] hover:border-[#FF5733]/20 transition-colors duration-200"
+                  className="flex items-center justify-between px-6 py-4 border-t border-[#1a1a1a] font-mono text-[12px] tracking-[0.1em] uppercase text-zinc-400 hover:text-[#FF5733] hover:border-[#FF5733]/20 transition-colors duration-200"
                 >
                   Read post
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -232,7 +232,7 @@ function Blog() {
             href="https://sloane-dev-blog.vercel.app"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 font-mono text-[10px] tracking-[0.15em] uppercase text-[#444] hover:text-[#FF5733] transition-colors duration-200"
+            className="inline-flex items-center gap-2 font-mono text-[12px] tracking-[0.15em] uppercase text-zinc-400 hover:text-[#FF5733] transition-colors duration-200"
           >
             View all posts
             <ArrowUpRight className="w-3 h-3" />

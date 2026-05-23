@@ -39,8 +39,12 @@ const Testimonials = () => {
 
   useEffect(() => {
     const nextIndex = (activeIndex + 1) % testimonials.length;
-    const prevIndex = (activeIndex - 1 + testimonials.length) % testimonials.length;
-    const preloadImage = (src: string) => { const img = new Image(); img.src = src; };
+    const prevIndex =
+      (activeIndex - 1 + testimonials.length) % testimonials.length;
+    const preloadImage = (src: string) => {
+      const img = new Image();
+      img.src = src;
+    };
     preloadImage(testimonials[nextIndex].image);
     preloadImage(testimonials[prevIndex].image);
   }, [activeIndex]);
@@ -49,7 +53,9 @@ const Testimonials = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setDirection(dir);
-    setActiveIndex((prev) => (prev + dir + testimonials.length) % testimonials.length);
+    setActiveIndex(
+      (prev) => (prev + dir + testimonials.length) % testimonials.length,
+    );
     setTimeout(() => setIsTransitioning(false), 400);
   };
 
@@ -64,23 +70,20 @@ const Testimonials = () => {
   const current = useMemo(() => testimonials[activeIndex], [activeIndex]);
 
   return (
-    <section
-      id="testimonials"
-      className="bg-[#080807] px-6 lg:px-10 py-20"
-    >
+    <section id="testimonials" className="bg-[#080807] px-6 lg:px-10 py-20">
       {/* Top bar */}
       <div className="max-w-6xl mx-auto flex items-center justify-between pb-6 border-b border-[#1a1a1a] mb-12">
-        <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]">
+        <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400">
           004 / Testimonials
         </span>
-        <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]">
-          {String(activeIndex + 1).padStart(2, "0")} / {String(testimonials.length).padStart(2, "0")}
+        <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400">
+          {String(activeIndex + 1).padStart(2, "0")} /{" "}
+          {String(testimonials.length).padStart(2, "0")}
         </span>
       </div>
 
       {/* Main grid */}
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 border border-[#1a1a1a]">
-
         {/* Left — photo */}
         <div className="relative overflow-hidden min-h-[360px] lg:min-h-[520px] border-b lg:border-b-0 lg:border-r border-[#1a1a1a]">
           <AnimatePresence mode="wait">
@@ -125,10 +128,8 @@ const Testimonials = () => {
 
         {/* Right — content */}
         <div className="flex flex-col">
-
           {/* Quote block */}
           <div className="flex-1 p-8 lg:p-10 flex flex-col justify-center gap-8">
-
             {/* Opening mark */}
             <span className="font-syne font-extrabold text-[5rem] leading-none text-[#FF5733]/10 select-none -mb-6">
               &ldquo;
@@ -161,7 +162,6 @@ const Testimonials = () => {
 
           {/* Nav row */}
           <div className="flex items-center justify-between px-8 lg:px-10 py-6 border-t border-[#1a1a1a]">
-
             {/* Dot indicators */}
             <div className="flex gap-2">
               {testimonials.map((_, i) => (

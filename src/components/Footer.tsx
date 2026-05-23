@@ -14,7 +14,11 @@ import {
 const socialLinks = [
   { icon: Github, href: "https://github.com/Sloane-J", label: "GitHub" },
   { icon: Twitter, href: "https://twitter.com/sloanejnr", label: "Twitter" },
-  { icon: Linkedin, href: "https://www.linkedin.com/in/samueldorkey9a88901bb/", label: "LinkedIn" },
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/samueldorkey9a88901bb/",
+    label: "LinkedIn",
+  },
   { icon: Mail, href: "mailto:samueldorkeyjr@gmail.com", label: "Email" },
 ];
 
@@ -36,14 +40,13 @@ function Footer() {
     <footer className="bg-[#080807] px-6 lg:px-10 pb-12 pt-4">
       {/* Structural Brutalist Grid */}
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 border border-[#1a1a1a]">
-        
         {/* Left Column — Brand Hero */}
         <div className="lg:col-span-5 p-8 lg:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1a1a1a]">
           <div className="flex flex-col gap-6">
-            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]">
+            <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400">
               007 / Brand
             </span>
-            
+
             {/* Word-by-word typography match */}
             <div className="flex flex-wrap gap-x-3 gap-y-1">
               {["Sloane", "Design", "Studio."].map((word, i) => (
@@ -52,26 +55,37 @@ function Footer() {
                   initial={{ opacity: 0, y: 16, filter: "blur(4px)" }}
                   whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.08, ease: [0.25, 0.4, 0.25, 1] }}
+                  transition={{
+                    duration: 0.4,
+                    delay: i * 0.08,
+                    ease: [0.25, 0.4, 0.25, 1],
+                  }}
                   className="font-syne font-extrabold text-3xl lg:text-4xl text-white leading-none"
                 >
-                  {i === 0 ? <span className="text-[#FF5733]">{word}</span> : word}
+                  {i === 0 ? (
+                    <span className="text-[#FF5733]">{word}</span>
+                  ) : (
+                    word
+                  )}
                 </motion.span>
               ))}
             </div>
 
-            <p className="font-mono text-xs text-[#555] leading-[1.85] max-w-sm mt-2">
-              Crafting high-performance digital architecture that integrates structural programming with minimal, balanced aesthetics.
+            <p className="font-mono text-sm text-[#555] leading-[1.85] max-w-sm mt-2">
+              Crafting high-performance digital architecture that integrates
+              structural programming with minimal, balanced aesthetics.
             </p>
           </div>
 
           <div className="mt-12 lg:mt-0">
-            <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-[#333] block mb-2">
+            <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400 block mb-2">
               Status
             </span>
             <div className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#FF5733] animate-pulse" />
-              <span className="font-mono text-xs text-white">Available for select projects</span>
+              <span className="font-mono text-sm text-white">
+                Available for select projects
+              </span>
             </div>
           </div>
         </div>
@@ -79,7 +93,7 @@ function Footer() {
         {/* Center Column — Quick Links Grid Section */}
         <div className="lg:col-span-3 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#1a1a1a]">
           <div className="p-6 border-b border-[#1a1a1a]">
-            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]">
+            <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400">
               Navigation
             </span>
           </div>
@@ -91,7 +105,7 @@ function Footer() {
                 className="group flex items-center justify-between p-5 hover:bg-[#0d0d0c] transition-colors duration-200"
               >
                 <div className="flex items-center gap-4">
-                  <span className="font-mono text-[10px] text-[#333] group-hover:text-[#FF5733]/50 transition-colors">
+                  <span className="font-mono text-[12px] text-zinc-400 group-hover:text-[#FF5733]/50 transition-colors">
                     {link.num}
                   </span>
                   <span className="font-syne font-bold text-sm text-white group-hover:text-[#FF5733] transition-colors">
@@ -107,7 +121,7 @@ function Footer() {
         {/* Right Column — Social Links Matrix */}
         <div className="lg:col-span-4 flex flex-col justify-between">
           <div className="p-6 border-b border-[#1a1a1a] flex items-center justify-between">
-            <span className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#333]">
+            <span className="font-mono text-[12px] tracking-[0.2em] uppercase text-zinc-400">
               Connect Ecosystem
             </span>
           </div>
@@ -133,12 +147,12 @@ function Footer() {
 
                 <div className="flex items-center justify-between w-full">
                   <div className="w-8 h-8 flex items-center justify-center border border-[#1a1a1a] group-hover:border-[#FF5733]/30 bg-[#080807] transition-colors rounded-sm">
-                    <social.icon className="w-3.5 h-3.5 text-[#444] group-hover:text-[#FF5733] transition-colors" />
+                    <social.icon className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#FF5733] transition-colors" />
                   </div>
                   <ArrowUpRight className="w-3 h-3 text-[#222] opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
-                
-                <span className="font-mono text-xs text-[#555] group-hover:text-white transition-colors block mt-4">
+
+                <span className="font-mono text-sm text-[#555] group-hover:text-white transition-colors block mt-4">
                   {social.label}
                 </span>
               </motion.a>
@@ -148,28 +162,34 @@ function Footer() {
           {/* Core Action Cell */}
           <button
             onClick={scrollToTop}
-            className="group w-full p-5 bg-[#0d0d0c] hover:bg-[#121211] border-t border-[#1a1a1a] flex items-center justify-between transition-colors font-mono text-[10px] tracking-[0.2em] uppercase text-[#555] hover:text-[#FF5733]"
+            className="group w-full p-5 bg-[#0d0d0c] hover:bg-[#121211] border-t border-[#1a1a1a] flex items-center justify-between transition-colors font-mono text-[12px] tracking-[0.2em] uppercase text-[#555] hover:text-[#FF5733]"
           >
             <span>Back to architecture apex</span>
             <div className="w-7 h-7 flex items-center justify-center border border-[#1a1a1a] group-hover:border-[#FF5733]/30 rounded-sm transition-colors">
-              <ArrowUp className="w-3.5 h-3.5 text-[#444] group-hover:text-[#FF5733] transition-colors" />
+              <ArrowUp className="w-3.5 h-3.5 text-zinc-400 group-hover:text-[#FF5733] transition-colors" />
             </div>
           </button>
         </div>
-
       </div>
 
       {/* Ground-level Meta Information */}
       <div className="max-w-6xl mx-auto mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 px-2">
-        <p className="font-mono text-[10px] tracking-wide text-[#333]">
-          © {new Date().getFullYear()} Samuel Dorkey Jr. Systems platform execution.
+        <p className="font-mono text-[12px] tracking-wide text-zinc-400">
+          © {new Date().getFullYear()} Samuel Dorkey Jr. Systems platform
+          execution.
         </p>
-        <div className="flex items-center gap-6 font-mono text-[10px]">
-          <a href="#" className="text-[#333] hover:text-[#FF5733] transition-colors tracking-wide">
+        <div className="flex items-center gap-6 font-mono text-[12px]">
+          <a
+            href="#"
+            className="text-zinc-400 hover:text-[#FF5733] transition-colors tracking-wide"
+          >
             Privacy Context
           </a>
           <span className="text-[#1a1a1a] select-none">/</span>
-          <a href="#" className="text-[#333] hover:text-[#FF5733] transition-colors tracking-wide">
+          <a
+            href="#"
+            className="text-zinc-400 hover:text-[#FF5733] transition-colors tracking-wide"
+          >
             Terms Protocol
           </a>
         </div>

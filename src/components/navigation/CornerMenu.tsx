@@ -47,8 +47,7 @@ function CornerMenu() {
     return () => document.removeEventListener("keydown", handleEscape);
   }, []);
 
-  const overlayRoot =
-    typeof document !== "undefined" ? document.body : null;
+  const overlayRoot = typeof document !== "undefined" ? document.body : null;
 
   return (
     <>
@@ -67,7 +66,11 @@ function CornerMenu() {
               whileTap={{ scale: 0.96 }}
               className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center border rounded-sm bg-[#080807] border-[#1a1a1a] text-white"
             >
-              {isMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              {isMenuOpen ? (
+                <X className="w-4 h-4" />
+              ) : (
+                <Menu className="w-4 h-4" />
+              )}
             </motion.button>
           </motion.div>
         )}
@@ -101,10 +104,10 @@ function CornerMenu() {
             >
               {/* Header */}
               <div className="flex items-center justify-between p-6 bg-[#0d0d0c] border-b border-[#1a1a1a]">
-                <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-[#444]">
+                <span className="font-mono text-[12px] tracking-[0.25em] uppercase text-zinc-400">
                   Index / Navigation Matrix
                 </span>
-                <span className="font-mono text-[9px] text-[#333]">
+                <span className="font-mono text-[12px] text-zinc-400">
                   [ESC] CLOSE
                 </span>
               </div>
@@ -112,8 +115,7 @@ function CornerMenu() {
               {/* Nav */}
               <nav className="flex flex-col divide-y divide-[#1a1a1a] border-b border-[#1a1a1a]">
                 {navItems.map((item, index) => {
-                  const isActive =
-                    activeSection === item.name.toLowerCase();
+                  const isActive = activeSection === item.name.toLowerCase();
 
                   return (
                     <motion.button
@@ -125,31 +127,35 @@ function CornerMenu() {
                       transition={{ delay: index * 0.04 }}
                     >
                       <div className="flex items-center gap-5">
-                        <span className={`font-mono text-[10px] ${
-                          isActive ? "text-[#FF5733]" : "text-[#2a2a29]"
-                        }`}>
+                        <span
+                          className={`font-mono text-[12px] ${
+                            isActive ? "text-[#FF5733]" : "text-[#2a2a29]"
+                          }`}
+                        >
                           {item.num}
                         </span>
-                        <span className={`text-xl font-bold ${
-                          isActive ? "text-[#FF5733]" : "text-white"
-                        }`}>
+                        <span
+                          className={`text-xl font-bold ${
+                            isActive ? "text-[#FF5733]" : "text-white"
+                          }`}
+                        >
                           {item.name}
                         </span>
                       </div>
 
-                      <ArrowUpRight className="w-4 h-4 text-[#333]" />
+                      <ArrowUpRight className="w-4 h-4 text-zinc-400" />
                     </motion.button>
                   );
                 })}
               </nav>
 
               {/* Footer */}
-              <div className="p-6 bg-[#0d0d0c] text-[10px] font-mono text-[#666]">
+              <div className="p-6 bg-[#0d0d0c] text-[12px] font-mono text-zinc-400">
                 SYSTEM ONLINE
               </div>
             </motion.div>
           </AnimatePresence>,
-          overlayRoot
+          overlayRoot,
         )}
     </>
   );

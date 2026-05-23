@@ -7,28 +7,32 @@ const services = [
   {
     num: "01",
     title: "Frontend Development",
-    description: "Fast, accessible interfaces built for production — not just prototypes.",
+    description:
+      "Fast, accessible interfaces built for production — not just prototypes.",
     tools: ["React", "Astro", "TypeScript", "Tailwind CSS", "Framer Motion"],
     accent: "#FF5733",
   },
   {
     num: "02",
     title: "Full Stack Development",
-    description: "End-to-end apps from database to UI, shipped and maintained in production.",
+    description:
+      "End-to-end apps from database to UI, shipped and maintained in production.",
     tools: ["Node.js", "Supabase", "PostgreSQL", "Hono", "Laravel"],
     accent: "#2196F3",
   },
   {
     num: "03",
     title: "Mobile Development",
-    description: "Cross-platform apps with offline support and native device integrations.",
+    description:
+      "Cross-platform apps with offline support and native device integrations.",
     tools: ["React Native", "Expo", "PWA", "SQLite"],
     accent: "#E91E63",
   },
   {
     num: "04",
     title: "SEO & Deployment",
-    description: "Structured data, sitemaps, Core Web Vitals, and zero-downtime deploys.",
+    description:
+      "Structured data, sitemaps, Core Web Vitals, and zero-downtime deploys.",
     tools: ["Vercel", "Cloudflare", "Schema.org", "Search Console"],
     accent: "#4CAF50",
   },
@@ -47,7 +51,6 @@ export default function Services() {
   return (
     <section id="services" className="bg-[#080807] py-20 px-6">
       <div className="mx-auto max-w-5xl">
-
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -77,11 +80,12 @@ export default function Services() {
               className="group bg-[#080807] hover:bg-[#111] transition-colors duration-200 p-10 flex flex-col gap-4 border-b border-r border-[#222]"
             >
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[11px] tracking-[0.15em] text-[#444]">
-                  {service.num}
-                </span>
                 <div
                   className="w-2 h-2 rounded-full"
+                  style={{ background: service.accent }}
+                  role="presentation"
+                  aria-label={`${service.title} indicator`}
+                />                  className="w-2 h-2 rounded-full"
                   style={{ background: service.accent }}
                 />
               </div>
@@ -90,15 +94,15 @@ export default function Services() {
                 {service.title}
               </h3>
 
-              <p className="font-mono text-xs text-[#888] leading-relaxed">
+              <p className="font-mono text-sm text-[#888] leading-relaxed">
                 {service.description}
               </p>
 
               <div className="mt-auto pt-5 border-t border-[#1e1e1e] flex flex-wrap gap-1.5">
-                {service.tools.map(tool => (
+                {service.tools.map((tool) => (
                   <span
                     key={tool}
-                    className="font-mono text-[10px] tracking-wide text-[#555] group-hover:text-[#888] border border-[#222] group-hover:border-[#333] px-2 py-1 rounded-sm transition-colors duration-200"
+                    className="font-mono text-[12px] tracking-wide text-[#555] group-hover:text-[#888] border border-[#222] group-hover:border-[#333] px-2 py-1 rounded-sm transition-colors duration-200"
                   >
                     {tool}
                   </span>
@@ -123,11 +127,10 @@ export default function Services() {
             <Rocket className="w-4 h-4" />
             Start a project
           </a>
-          <span className="font-mono text-[11px] tracking-widest text-[#444]">
+          <span className="font-mono text-[11px] tracking-widest text-zinc-400">
             Available for freelance work
           </span>
         </motion.div>
-
       </div>
     </section>
   );

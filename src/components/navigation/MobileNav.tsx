@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import { memo } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { X, ArrowUpRight } from "lucide-react"
+import { memo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X, ArrowUpRight } from "lucide-react";
 
 interface MobileNavProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 const menuItems = [
   { name: "Home", num: "01" },
   { name: "About", num: "02" },
   { name: "Services", num: "03" },
-  { name: "Testimonials", num: "04" },
-  { name: "Contact", num: "05" },
-]
-
+  { name: "Projects", num: "04" },
+  { name: "Testimonials", num: "05" },
+  { name: "Contact", num: "06" },
+];
 function MobileNav({ isOpen, onClose }: MobileNavProps) {
   return (
     <AnimatePresence>
@@ -44,7 +44,7 @@ function MobileNav({ isOpen, onClose }: MobileNavProps) {
             {/* Upper Frame Anchor Block */}
             <div>
               <div className="flex items-center justify-between p-6 border-b border-[#1a1a1a] bg-[#0d0d0c]">
-                <span className="font-mono text-[9px] tracking-[0.25em] uppercase text-[#444]">
+                <span className="font-mono text-[12px] tracking-[0.25em] uppercase text-neutral-200">
                   Menu Architecture
                 </span>
                 <button
@@ -63,7 +63,11 @@ function MobileNav({ isOpen, onClose }: MobileNavProps) {
                     key={item.name}
                     initial={{ opacity: 0, x: 16 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.35, delay: i * 0.05, ease: [0.25, 0.4, 0.25, 1] }}
+                    transition={{
+                      duration: 0.35,
+                      delay: i * 0.05,
+                      ease: [0.25, 0.4, 0.25, 1],
+                    }}
                   >
                     <a
                       href={`#${item.name.toLowerCase()}`}
@@ -71,7 +75,7 @@ function MobileNav({ isOpen, onClose }: MobileNavProps) {
                       onClick={onClose}
                     >
                       <div className="flex items-center gap-5">
-                        <span className="font-mono text-[10px] text-[#333] group-hover:text-[#FF5733]/50 transition-colors">
+                        <span className="font-mono text-[12px] text-neutral-200 group-hover:text-[#FF5733]/50 transition-colors">
                           {item.num}
                         </span>
                         <span className="font-syne font-extrabold text-lg text-white group-hover:text-[#FF5733] transition-colors">
@@ -88,30 +92,31 @@ function MobileNav({ isOpen, onClose }: MobileNavProps) {
             {/* Bottom Meta Interface Grid */}
             <div className="p-6 bg-[#0d0d0c] border-t border-[#1a1a1a] flex flex-col gap-4">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[8px] tracking-[0.2em] uppercase text-[#333]">
+                <span className="font-mono text-[8px] tracking-[0.2em] uppercase text-neutral-200">
                   Region Protocol
                 </span>
-                <span className="font-mono text-[10px] text-[#555]">
+                <span className="font-mono text-[12px] text-[#555]">
                   GMT+0 · Ho, GH
                 </span>
               </div>
               <div className="h-[1px] bg-[#1a1a1a] w-full" />
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[8px] tracking-[0.2em] uppercase text-[#333]">
+                <span className="font-mono text-[8px] tracking-[0.2em] uppercase text-neutral-200">
                   System Status
                 </span>
                 <div className="flex items-center gap-1.5">
                   <span className="w-1 h-1 rounded-full bg-[#FF5733] animate-pulse" />
-                  <span className="font-mono text-[10px] text-white">Active Operational</span>
+                  <span className="font-mono text-[12px] text-white">
+                    Active Operational
+                  </span>
                 </div>
               </div>
             </div>
-
           </motion.div>
         </>
       )}
     </AnimatePresence>
-  )
+  );
 }
 
-export default memo(MobileNav)
+export default memo(MobileNav);
