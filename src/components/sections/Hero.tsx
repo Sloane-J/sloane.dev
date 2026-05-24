@@ -34,11 +34,15 @@ export default function Hero() {
       {/* Top bar */}
       <div className="flex items-center justify-between py-7 border-b border-[#1a1a1a]">
         <div className="flex items-center gap-3">
-          <div className="w-2.5 h-2.5 rounded-full bg-[#FF5733]" />
-          <span className="font-syne font-bold text-sm text-white tracking-wide">
-            Samuel Dorkey
-          </span>{" "}
-        </div>
+  <img
+    src="/images/samuel-dorkey-logo.png"
+    alt="Samuel Dorkey logo"
+    className="w-8 h-8 object-contain"
+  />
+  <span className="font-syne font-bold text-sm text-white tracking-wide">
+    Samuel Dorkey
+  </span>
+</div>
         <div className="flex items-center gap-2 font-mono text-[12px] tracking-[0.12em] uppercase text-[#555]">
           <span className="w-1.5 h-1.5 rounded-full bg-[#4CAF50] animate-pulse" />
           Available for work

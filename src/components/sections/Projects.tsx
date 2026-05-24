@@ -18,35 +18,37 @@ const projects = [
     githubUrl: "https://github.com/fairy-app",
     images: [
       {
-        src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=675&fit=crop",
+        src: "/images/affiliate-nexus-1.png",
       },
       {
-        src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=675&fit=crop",
+        src: "/images/affiliate-nexus-2.png",
       },
       {
-        src: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=675&fit=crop",
+        src: "/images/affiliate-nexus-3.png",
       },
     ],
   },
   {
-    title: "Grain & Gradient",
+    title: "Acadex",
     description:
-      "A modern digital publication offering insightful content across technology, current affairs, and entertainment.",
+      "Acadex is a platform where students upload, browse, and download academic resources like lecture notes and past questions. It features filters by department, category, and level, a community forum, and role-based access for administrators to manage content..",
     tags: [
-      "React.js",
+      "Nextjs",
       "TypeScript",
-      "Astro.js",
+      "NextAuth",
       "Tailwind CSS",
-      "Framer Motion",
     ],
-    liveUrl: "http://grainandgradient.vercel.app/",
-    githubUrl: "https://github.com/Sloane-J/Grain-Gradient",
+    liveUrl: "https://acadex-beta.vercel.app/",
+    githubUrl: "https://github.com/Sloane-J/acadex",
     images: [
       {
-        src: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1200&h=675&fit=crop",
+        src: "/acadex/acadex-landing-page.JPG",
       },
       {
-        src: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&h=675&fit=crop",
+        src: "/acadex/acadex-login-page.JPG",
+      },
+      {
+        src: "/acadex/acadex-forum.JPG",
       },
     ],
   },
@@ -59,26 +61,23 @@ const projects = [
     githubUrl: "https://github.com/Q-Vault",
     images: [
       {
-        src: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&h=675&fit=crop",
+        src: "/blog/q-vault.webp",
       },
       {
-        src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=675&fit=crop",
+        src: "/blog/q-vault-admin.webp",
       },
     ],
   },
   {
-    title: "Peer Tech Konnect",
+    title: "MabEcare Foundation ",
     description:
-      "A web-based LMS that connects students, tutors, and administrators in a unified educational environment.",
-    tags: ["PHP", "HTML", "Bootstrap", "JavaScript"],
-    liveUrl: "#",
-    githubUrl: "https://github.com/LMS",
+      "MabEcare Foundation is a non-profit organisation based in Ho, Volta Region, Ghana. We are dedicated to supporting pregnant women, empowering mothers, and protecting children through healthcare, education, and community outreach.",
+    tags: ["Astro", "React", "Shadcn"],
+    liveUrl: "https://mabecare-foundation.vercel.app/",
+    githubUrl: "https://github.com/Sloane-J/MabeCare-Foundation-website/",
     images: [
       {
-        src: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=675&fit=crop",
-      },
-      {
-        src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&h=675&fit=crop",
+        src: "/blog/MummyCare-HeroSection.JPG",
       },
     ],
   },

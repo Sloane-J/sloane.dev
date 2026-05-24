@@ -12,7 +12,7 @@ const testimonials = [
     company: "TechStart",
     content:
       "They delivered our project on time and exceeded expectations. The attention to detail and innovative solutions were beyond what we imagined possible.",
-    image: "/images/Profile-Pic.jpg",
+    image: "/images/samuel-dorkey-logo.png",
   },
   {
     name: "Michael Chen",
@@ -20,7 +20,7 @@ const testimonials = [
     company: "Global Marketing Solutions",
     content:
       "Exceptional attention to detail and creative solutions. Their understanding of our brand and market positioning led to outstanding results.",
-    image: "/images/Profile-Pic.jpg",
+    image: "/images/samuel-dorkey-logo.png",
   },
   {
     name: "Emma Davis",
@@ -28,7 +28,7 @@ const testimonials = [
     company: "Tech Innovations Ltd",
     content:
       "Outstanding work on our web application. The ability to translate requirements into a functional, beautiful product was remarkable.",
-    image: "/images/Profile-Pic.jpg",
+    image: "/images/samuel-dorkey-logo.png",
   },
 ];
 

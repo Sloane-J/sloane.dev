@@ -53,7 +53,7 @@ const About = () => {
           className="relative overflow-hidden min-h-[400px] lg:min-h-[560px]"
         >
           <img
-            src="/images/Profile-Pic.jpg"
+            src="/images/samuel-dorkey.jpg"
             alt="Samuel Dorkey Jr — Software Developer"
             className="w-full h-full object-cover object-top absolute inset-0"
             onError={(e) => {
