@@ -3,8 +3,8 @@ export const siteConfig = {
   title: "Samuel Dorkey — Freelance Software Developer",
   description:
     "Helping creative brands and studios gain an unfair advantage with story-driven and results-focused websites. Based in Ghana. Working globally.",
-  url: "https://sloanedev.vercel.app",
-  ogImage: "https://sloanedev.vercel.app/og.jpg",
+  url: "https://samuel-dorkey.vercel.app/",
+  ogImage: "https://samuel-dorkey.vercel.app/og.jpg",
   links: {
     twitter: "https://twitter.com/sloanejnr",
     github: "https://github.com/Sloane-J",

@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import { fileURLToPath } from 'url';
 
 export default defineConfig({
-  site: 'https://sloanedev.vercel.app',
+  site: 'https://samuel-dorkey.vercel.app/',
   integrations: [
     react(),
     tailwind({

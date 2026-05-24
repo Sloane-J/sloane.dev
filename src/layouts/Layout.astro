@@ -14,17 +14,17 @@ const {
 } = Astro.props;
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description}/>
+    <meta name="description" content={description} />
     <meta
       name="keywords"
       content="web developer,freelance creative developer,freelance web designer,samuel dorkey,Ghana web designer,Samuel Dorkey, Sloane Jnr"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="canonical" href="https://sloanedev.vercel.app/" />
+    <link rel="canonical" href="https://samuel-dorkey.vercel.app/" />
     <meta
       property="og:title"
       content="Samuel Dorkey — Freelance Web Designer and Developer"
@@ -34,7 +34,7 @@ const {
       property="og:description"
       content="Helping creative brands and studios gain an unfair advantage with story-driven and results focused websites. Based in Koforidua, Ghana. Working Globally."
     />
-    <meta property="og:url" content="https://sloanedev.vercel.app/" />
+    <meta property="og:url" content="https://samuel-dorkey.vercel.app/" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -47,10 +47,9 @@ const {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Mrs+Saint+Delafield&display=swap"
-  rel="stylesheet"
-/>
-
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Mrs+Saint+Delafield&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- google console meta tag -->
     <meta
@@ -59,10 +58,14 @@ const {
     />
 
     <!-- bing webmaster verification tag -->
-     <meta name="msvalidate.01" content="4FE1EAEB5BE27F64EFB39BA29816E7A9" />
+    <meta name="msvalidate.01" content="4FE1EAEB5BE27F64EFB39BA29816E7A9" />
 
-     <!-- umami tracking code -->
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="50b78d05-d967-40d8-8b5d-06db4dafad42"></script>
+    <!-- umami tracking code -->
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="50b78d05-d967-40d8-8b5d-06db4dafad42"
+    ></script>
 
     <title>{title}</title>
     <ViewTransitions />
@@ -70,6 +73,9 @@ const {
   <body class="bg-[#080807] text-white min-h-screen font-playfair">
     <slot />
     <LenisScroll />
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
   </body>
 </html>
