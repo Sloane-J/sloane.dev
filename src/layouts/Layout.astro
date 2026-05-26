@@ -1,81 +1,168 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import "../styles/global.css";
 import LenisScroll from "@/components/LenisScroll.astro";
 
 interface Props {
-  title: string;
+  title?: string;
   description?: string;
+  ogImage?: string;
+  canonical?: string;
+  type?: "website" | "article" | "profile";
 }
 
+const siteUrl = "https://samuel-dorkey-vercel.app";
+
 const {
-  title,
-  description = "A modern portfolio website built with Astro and React",
+  title = "Samuel Dorkey — Freelance Software Developer in Ghana",
+  description = "Software developer with 4+ years shipping across design and code. Building cohesive, production-ready software for underserved markets. Based in Accra, Ghana. Working globally.",
+  ogImage = `${siteUrl}/og-image.jpg`,
+  canonical = new URL(Astro.url.pathname, siteUrl).toString(),
+  type = "website",
 } = Astro.props;
+
+const siteName = "Samuel Dorkey";
+const twitterHandle = "@sloanejnr";
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Samuel Dorkey",
+  url: siteUrl,
+  image: `${siteUrl}/og-image.jpg`,
+  jobTitle: "Freelance Software Developer",
+  worksFor: {
+    "@type": "Organization",
+    name: "Sloane Dev",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Accra",
+    addressCountry: "GH",
+  },
+  sameAs: [
+    "https://github.com/Sloane-J",
+    "https://www.linkedin.com/in/samueldorkey9a88901bb/",
+    "https://twitter.com/sloanejnr",
+    "https://sloane-dev-blog.vercel.app/",
+    "https://sloane-dev-blog.vercel.app/projects",
+  ],
+  knowsAbout: [
+    "Laravel",
+    "React",
+    "Supabase",
+    "Astro",
+    "TypeScript",
+    "Node.js",
+    "Web Development",
+    "Backend Development",
+    "Frontend Development",
+    "Full Stack Development",
+  ],
+};
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark scroll-smooth">
   <head>
+    <!-- Core -->
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary SEO -->
+    <title>{title}</title>
+
+    <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta
       name="keywords"
-      content="web developer,freelance creative developer,freelance web designer,samuel dorkey,Ghana web designer,Samuel Dorkey, Sloane Jnr"
-    />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="canonical" href="https://samuel-dorkey.vercel.app/" />
-    <meta
-      property="og:title"
-      content="Samuel Dorkey — Freelance Web Designer and Developer"
+      content="Samuel Dorkey, software developer Ghana, freelance developer Accra, web developer Ghana, Laravel developer, React developer, Astro developer, Supabase developer, TypeScript developer, Node.js developer, frontend developer Ghana, backend developer Ghana, full stack developer Ghana, Sloane Dev, Acadex, Expiro, Legdr"
     />
     <meta name="author" content="Samuel Dorkey" />
-    <meta
-      property="og:description"
-      content="Helping creative brands and studios gain an unfair advantage with story-driven and results focused websites. Based in Koforidua, Ghana. Working Globally."
-    />
-    <meta property="og:url" content="https://samuel-dorkey.vercel.app/" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:site_name" content="Samuel Dorkey" />
-    <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#080807" />
 
-    <!-- Google Fonts: Playfair Display + Inter -->
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Samuel Dorkey — Freelance Software Developer"
+    />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={twitterHandle} />
+    <meta name="twitter:creator" content={twitterHandle} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:url" content={canonical} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta
+      name="twitter:image:alt"
+      content="Samuel Dorkey — Freelance Software Developer"
+    />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&family=Mrs+Saint+Delafield&display=swap"
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin="anonymous"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&family=Mrs+Saint+Delafield&display=swap"
       rel="stylesheet"
     />
 
-    <!-- google console meta tag -->
+    <!-- Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)}
+    ></script>
+
+    <!-- Verification -->
     <meta
       name="google-site-verification"
       content="JjtegxanX-Bw1RtFAPdjtqwLp2SLjKUZh-Ggy6xobaY"
     />
 
-    <!-- bing webmaster verification tag -->
     <meta name="msvalidate.01" content="4FE1EAEB5BE27F64EFB39BA29816E7A9" />
 
-    <!-- umami tracking code -->
+    <!-- Analytics -->
     <script
       defer
       src="https://cloud.umami.is/script.js"
       data-website-id="50b78d05-d967-40d8-8b5d-06db4dafad42"
     ></script>
 
-    <title>{title}</title>
-    <ViewTransitions />
+    <!-- Astro -->
+    <ClientRouter />
   </head>
-  <body class="bg-[#080807] text-white min-h-screen font-playfair">
+
+  <body class="min-h-screen bg-[#080807] text-white antialiased font-inter">
     <slot />
+
     <LenisScroll />
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
-    ></script>
   </body>
 </html>
